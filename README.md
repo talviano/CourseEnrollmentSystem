@@ -1,3 +1,12 @@
+
+
+| `TORIN ALVIANO` | `ITSC 1213` | `02/18/2025` |
+| :---- | :---: | ----: |
+
+# **`University Course Enrollment System`**
+
+
+
 **PROBLEM STATEMENT:**  
 Every university needs an efficient course registration system where students can register for courses that the university provides, instructors can manage their course assignments, and administrators can oversee registration and make changes to data in the system. An enrollment system will have issues like:
 
