@@ -42,18 +42,39 @@ public class Course {
         return false;
     }
 
+    /**
+     * Returns the ID of the course.
+     *
+     * @return the course ID
+     */
     public String getId() {
         return id;
     }
     
+    /**
+     * Returns the name of the course.
+     *
+     * @return the course name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the number of credits for the course.
+     *
+     * @return the number of credits
+     */
     public int getCredits() {
         return credits;
     }
 
+    /**
+     * Adds a section to the course.
+     *
+     * @param section the course section to add
+     * @return true if the section is added successfully, false otherwise
+     */
     public boolean addSection(CourseSection section) {
         for (CourseSection s : sections) {
             if (s.getSectionId().equals(section.getSectionId())) {
