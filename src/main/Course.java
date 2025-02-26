@@ -41,4 +41,26 @@ public class Course {
     public boolean checkPrerequisites(Student student) {
         return false;
     }
+
+    public String getId() {
+        return id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public boolean addSection(CourseSection section) {
+        for (CourseSection s : sections) {
+            if (s.getSectionId().equals(section.getSectionId())) {
+                return false;
+            }
+        }
+        this.sections.add(section);
+        return true;
+    }
 }

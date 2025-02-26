@@ -6,10 +6,13 @@
  */
 package main;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+
 public class TimeSlot {
-    private String day;
-    private int startTime; // Will look for time class later
-    private int endTime; // Will look for time class later
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private DayOfWeek day;
 
     /**
      * Constructs a TimeSlot with a specified day, start time, and end time.
@@ -18,10 +21,13 @@ public class TimeSlot {
      * @param startTime the start time of the time slot
      * @param endTime the end time of the time slot
      */
-    public TimeSlot(String day, int startTime, int endTime) {
-        this.day = day;
+    public TimeSlot(LocalTime startTime, LocalTime endTime, DayOfWeek day) {
+        if (startTime == endTime) {
+            throw new IllegalArgumentException("Classes must have a duration greater than zero.");
+        }
         this.startTime = startTime;
         this.endTime = endTime;
+        this.day = day;
     }
 
     /**
@@ -31,7 +37,28 @@ public class TimeSlot {
      * @return true if the time slots conflict, false otherwise
      */
     public boolean conflictsWith(TimeSlot other) {
-
+        if (this.day == other.day) { // no conflict if they are on the same day
+            if (this.startTime == other.startTime) {
+                return true;
+            }
+            TimeSlot first = other.startTime.isBefore(this.startTime) ? other : this; // If the start time of other is before this then first is other otherwise first and this
+            TimeSlot last = first == other ? this : other; //If first is other than last is this otherwise other
+            return (last.startTime.isBefore(first.endTime) || last.startTime.equals(first.endTime)); //If last starts before first ends or if the startTime equals the end time then there is a conflict
+        }
         return false;
     }
+
+    public DayOfWeek getDay() {
+        return day;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    
 }

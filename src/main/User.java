@@ -26,24 +26,48 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    
-    /**
-     * Authenticates user entered login credentials.
-     *
-     * @param email the email entered by the user
-     * @param password the password entered by the user
-     * @return true if the user is authenticated, false otherwise
-     */
-    public boolean login(String email, String password) {
-        //checks if email and password taken as arguments match any users
-        //If so returns true, otherwise returns false
-        return false;
-    }
+
 
     /**
      * Logs out the user from the system.
      */
-    public void logout() {  
+    public void logout() {
+        // TODO: Implement logout logic
+    }
+    
+    /**
+     * Returns the email of the user.
+     *
+     * @return the email of the user
+     */
+    public String getEmail() {
+        return email;
     }
 
+    /**
+     * Returns the password of the user.
+     *
+     * @return the password of the user
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Returns the name of the user.
+     *
+     * @return the name of the user
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the ID of the user.
+     *
+     * @return the ID of the user
+     */
+    public String getId() {
+        return id;
+    }
 }

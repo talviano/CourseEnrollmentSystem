@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Admin extends User {
+    private static int lastAssignedId = 802999999;
     private List<String> permissions;
+    
     /**
      * Constructs an Admin with specified details.
      *
@@ -19,26 +21,8 @@ public class Admin extends User {
      * @param email the email of the admin
      * @param password the password of the admin
      */
-    public Admin(String name, String id, String email, String password) {
-        super(name, id, email, password);
+    public Admin(String name, String email, String password) {
+        super(name, String.valueOf(++lastAssignedId), email, password);
         this.permissions = new ArrayList<>();
-    }
-
-    /**
-     * Adds a new course to the system.
-     *
-     * @return true if the course is added successfully, false otherwise
-     */
-    public boolean addCourse() {
-        return false;
-    }
-
-    /**
-     * Removes a course from the system.
-     *
-     * @return true if the course is removed successfully, false otherwise
-     */
-    public boolean removeCourse() {
-        return false;
     }
 }
