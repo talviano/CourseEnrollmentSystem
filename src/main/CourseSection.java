@@ -26,9 +26,9 @@ public class CourseSection {
      * @param maxCapacity the maximum capacity of the course section
      * @param course the course associated with the section
      */
-    public CourseSection(String sectionId, Instructor instructor, List<TimeSlot> timeSlots, int maxCapacity, Course course) {
+    public CourseSection(String sectionId, List<TimeSlot> timeSlots, int maxCapacity, Course course) {
         this.sectionId = sectionId;
-        this.instructor = instructor;
+        this.instructor = null;
         this.timeSlots = timeSlots;
         this.maxCapacity = maxCapacity;
         this.course = course;
@@ -45,7 +45,7 @@ public class CourseSection {
     }
 
     /**
-     * Enrolls a student in the course section:
+     * Enrolls a student in the course section.
      *
      * Enrollment is unsuccessful if the student is already enrolled in the section
      * or if the section has reached its maximum capacity.
@@ -95,6 +95,23 @@ public class CourseSection {
     }
 
     /**
+     * Assigns an instructor to the course section.
+     *
+     * If the section already has an instructor, the current instructor is removed before assigning the new instructor.
+     *
+     * @param instructor the instructor to assign
+     */
+    public void assignInstructor(Instructor instructor) {
+        if (this.instructor != null) {
+            this.instructor.getAssignedCourses().remove(this);
+        }
+        this.instructor = instructor;
+        if (this.instructor != null) {
+            this.instructor.assignCourse(this);
+        }
+    }
+
+    /**
      * Returns the list of students enrolled in the course section.
      *
      * @return the list of enrolled students
@@ -138,4 +155,67 @@ public class CourseSection {
     public int getEnrolledCount() {
         return enrolledStudents.size();
     }
+
+    /**
+     * Returns the maximum capacity of the course section.
+     *
+     * @return the maximum capacity
+     */
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    /**
+     * Returns the instructor assigned to the course section.
+     *
+     * @return the instructor
+     */
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    /**
+     * Returns the formatted string of time slots for the course section.
+     *
+     * @return the formatted string of time slots
+     */
+    public String getTimeSlotsFormatted() {
+        StringBuilder formatted = new StringBuilder();
+        for (TimeSlot slot : timeSlots) {
+            if (formatted.length() > 0) {
+                formatted.append(", ");
+            }
+            formatted.append(slot.getDay().toString().charAt(0)).append(" ").append(Util.formatTimeSlot(slot));
+        }
+        return formatted.toString();
+    }
+
+    /**
+     * Views the list of students enrolled in the course section.
+     *
+     * @return {@code true} if there are students enrolled, {@code false} if:
+     *         <ul>
+     *             <li>No students are enrolled in the section</li>
+     *         </ul>
+     */
+    public boolean viewEnrolledStudents() {
+        if (this.enrolledStudents.isEmpty()) {
+            System.out.println("There are no students enrolled in this section");
+            return false;
+        }
+        int maxEnrolledStudentsNameWidth = Util.getMaxEnrolledStudentNameWidth(this);
+        int maxEnrolledEmailWidth = Util.getMaxEnrolledStudentEmailWidth(this);
+        int[] stringWidths = new int[] { maxEnrolledStudentsNameWidth, 9, maxEnrolledEmailWidth };
+        System.out.println(Util.centerAlign(this.getCourse().getId() + "-" + this.sectionId + " Roster", (maxEnrolledStudentsNameWidth + 2) + 9 + (maxEnrolledEmailWidth + 2)));
+        String rowFormat = "| %-" + maxEnrolledStudentsNameWidth + "s | %-9s | %-" + maxEnrolledEmailWidth + "s |\n";
+        Util.createTableSeperator(stringWidths);
+        System.out.printf(rowFormat, "Name", "Id", "Email");
+        Util.createTableSeperator(stringWidths);
+        for (Student student : this.enrolledStudents) {
+            System.out.printf(rowFormat, student.getName(), student.getId(), student.getEmail());
+            Util.createTableSeperator(stringWidths);
+        }
+        return true;
+    }
+
 }

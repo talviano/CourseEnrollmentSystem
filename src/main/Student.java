@@ -24,7 +24,7 @@ public class Student extends User {
      * @param advisingHold the advising hold status of the student
      */
     public Student(String name, String email, String password, boolean advisingHold) {
-        super(name, String.valueOf(++lastAssignedId), email, password);
+        super(String.valueOf(++lastAssignedId), name, email, password);
         this.enrolledCourses = new ArrayList<>();
         this.advisingHold = advisingHold;
     }
@@ -109,7 +109,7 @@ public class Student extends User {
      */
     public void printClassesForDay(DayOfWeek day) {
         System.out.println(" ".repeat((39 - day.toString().length()) / 2) + day);
-        Util.createTableSeperator(39);
+        Util.createTableSeperator(new int[]{39, 28});
         for (CourseSection course : enrolledCourses) {
             for (TimeSlot slot : course.getTimeSlots()) {
                 if (slot.getDay().equals(day)) {
@@ -119,7 +119,7 @@ public class Student extends User {
             }
             
         }
-        Util.createTableSeperator(39);
+        Util.createTableSeperator(new int[]{39, 28});
         System.out.print("\n");
     }
 

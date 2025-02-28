@@ -22,7 +22,7 @@ public class Admin extends User {
      * @param password the password of the admin
      */
     public Admin(String name, String email, String password) {
-        super(name, String.valueOf(++lastAssignedId), email, password);
+        super(String.valueOf(++lastAssignedId), name, email, password);
         this.permissions = new ArrayList<>();
     }
 }
