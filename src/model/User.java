@@ -4,7 +4,7 @@
  *
  * @version Feb 22, 2025
  */
-package main;
+package model;
 
 public class User {
     private String id;
@@ -26,7 +26,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
 
     /**
      * Logs out the user from the system.

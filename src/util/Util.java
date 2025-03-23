@@ -4,9 +4,17 @@
  * 
  * @version Feb 26, 2025
  */
-package main;
+package util;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import model.Course;
+import model.CourseSection;
+import model.Instructor;
+import model.Student;
+import model.TimeSlot;
+import model.User;
+import system.AccountManager;
 
 public class Util {
     /**
@@ -32,6 +40,43 @@ public class Util {
             System.out.printf("+%" + (width + 2) + "s", "-".repeat(width + 2));
         }
         System.out.println("+");
+    }
+
+    /**
+     * Validates if the given menu choice is within the valid range.
+     *
+     * @param choice the menu choice to validate
+     * @param size the number of menu options
+     * @return true if the choice is valid, false otherwise
+     */
+    public static boolean isValidMenuChoice(int choice, int size) {
+        return choice > 0 && choice < size + 1;
+    }
+
+    /**
+     * Creates and prints a menu with the given name and actions.
+     *
+     * @param name the name of the menu
+     * @param actions the actions to be included in the menu
+     */
+    public static void createMenu(String name, String[] actions) {
+        String longest = "";
+        for (String action : actions) {
+            if (action.length() > longest.length()) {
+                longest = action;
+            }
+        }
+        if (name.length() > longest.length()) {
+            longest = name;
+        }
+        int length = longest.length() + 15;
+        createSeperator(length);
+        System.out.println(name);
+        createSeperator(length);
+        for (int i = 0; i < actions.length; i++) {
+            System.out.println("[" + (i + 1) + "] " + actions[i]);
+        }
+        createSeperator(length);
     }
 
     /**
@@ -84,6 +129,23 @@ public class Util {
     }
 
     /**
+     * Calculates the maximum width required to display the time slots of a list of courses.
+     *
+     * @param courses the list of courses
+     * @return the maximum width required to display the time slots
+     */
+    public static int getMaxTimeSlotWidth(List<Course> courses) {
+        int max = 0;
+        for (Course course : courses) {
+            for (CourseSection section : course.getSections()) {
+                max = Math.max(max, section.getTimeSlotsFormatted().length());
+                System.out.println(section.getTimeSlotsFormatted());
+            }
+        }
+        return max;
+    }
+
+    /**
      * Calculates the maximum width required to display the names of students enrolled in a course section.
      *
      * @param section the course section whose enrolled students' names are to be considered
@@ -115,4 +177,62 @@ public class Util {
         return max;
     }
 
+    /**
+     * Calculates the maximum width required to display the names of users managed by the account manager.
+     *
+     * @param manager the account manager
+     * @return the maximum width required to display the names of users
+     */
+    public static int getMaxUserNameWidth(AccountManager manager) {
+        int max = 0;
+        for (User user : manager.getUsers()) {
+            max = Math.max(max, user.getName().length());
+        }
+        return max;
+    }
+
+    /**
+     * Calculates the maximum width required to display the email addresses of users managed by the account manager.
+     *
+     * @param manager the account manager
+     * @return the maximum width required to display the email addresses of users
+     */
+    public static int getMaxUserEmailWidth(AccountManager manager) {
+        int max = 0;
+        for (User user : manager.getUsers()) {
+            max = Math.max(max, user.getEmail().length());
+        }
+        return max;
+    }
+
+    /**
+     * Calculates the maximum width required to display the passwords of users managed by the account manager.
+     *
+     * @param manager the account manager
+     * @return the maximum width required to display the passwords of users
+     */
+    public static int getMaxUserPasswordWidth(AccountManager manager) {
+        int max = 0;
+        for (User user : manager.getUsers()) {
+            max = Math.max(max, user.getEmail().length());
+        }
+        return max;
+    }
+
+    /**
+     * Converts a yes/no input string to a boolean value.
+     *
+     * @param input the input string ("y" for yes, "n" for no)
+     * @return true if the input is "y", false otherwise
+     */
+    public static boolean yesNoToBoolean(String input) {
+        switch (input.trim().toLowerCase()) {
+            case "y":
+                return true;
+            case "n":
+                return false;
+            default:
+                return false; 
+        }
+    }
 }

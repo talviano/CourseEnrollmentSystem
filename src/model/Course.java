@@ -4,7 +4,7 @@
  *
  * @version Feb 22, 2025
  */
-package main;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,9 @@ public class Course {
     private String description;
     private int credits;
     private List<CourseSection> sections;
+    private String crn;
+    private static int lastAssignedCrn = 10000;
+    private static int sectionCount = 0;
 
     /**
      * Constructs a Course with specified details.
@@ -30,6 +33,7 @@ public class Course {
         this.description = description;
         this.credits = credits;
         this.sections = new ArrayList<>();
+        this.crn = String.valueOf(++lastAssignedCrn);
     }
 
     /**
@@ -50,7 +54,7 @@ public class Course {
     public String getId() {
         return id;
     }
-    
+
     /**
      * Returns the name of the course.
      *
@@ -70,18 +74,34 @@ public class Course {
     }
 
     /**
-     * Adds a section to the course.
+     * Creates and adds a section to the course.
      *
-     * @param section the course section to add
-     * @return true if the section is added successfully, false otherwise
+     * @param timeSlots the time slots of the course section
+     * @param maxCapacity the maximum capacity of the course section
+     * @return the created course section
      */
-    public boolean addSection(CourseSection section) {
-        for (CourseSection s : sections) {
-            if (s.getSectionId().equals(section.getSectionId())) {
-                return false;
-            }
-        }
-        this.sections.add(section);
-        return true;
+    public CourseSection createSection(List<TimeSlot> timeSlots, int maxCapacity) {
+        String sectionId = String.format("%03d", ++sectionCount);
+        CourseSection section = new CourseSection(this, sectionId, timeSlots, maxCapacity);
+        sections.add(section);
+        return section;
+    }
+
+    /**
+     * Returns the list of sections for the course.
+     *
+     * @return the list of sections
+     */
+    public List<CourseSection> getSections() {
+        return sections;
+    }
+
+    /**
+     * Returns the total number of sections created.
+     *
+     * @return the total number of sections
+     */
+    public int getSectionCount() {
+        return sectionCount;
     }
 }

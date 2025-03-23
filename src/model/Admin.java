@@ -4,7 +4,7 @@
  *
  * @version Feb 22, 2025
  */
-package main;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;

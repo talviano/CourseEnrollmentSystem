@@ -4,7 +4,7 @@
  *
  * @version Feb 22, 2025
  */
-package main;
+package model;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -48,17 +48,30 @@ public class TimeSlot {
         return false;
     }
 
+    /**
+     * Returns the day of the time slot.
+     *
+     * @return the day of the time slot
+     */
     public DayOfWeek getDay() {
         return day;
     }
 
+    /**
+     * Returns the start time of the time slot.
+     *
+     * @return the start time of the time slot
+     */
     public LocalTime getStartTime() {
         return startTime;
     }
 
+    /**
+     * Returns the end time of the time slot.
+     *
+     * @return the end time of the time slot
+     */
     public LocalTime getEndTime() {
         return endTime;
     }
-
-    
 }

@@ -10,11 +10,12 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import main.Course;
-import main.CourseSection;
-import main.Instructor;
-import main.Student;
-import main.TimeSlot;
+
+import model.Course;
+import model.CourseSection;
+import model.Instructor;
+import model.Student;
+import model.TimeSlot;
 
 public class InstructorTest {
     public static void main(String[] args) {
@@ -37,12 +38,12 @@ public class InstructorTest {
         // Create Course Sections
         List<TimeSlot> timeSlots1 = new ArrayList<>();
         timeSlots1.add(morningSlot);
-        CourseSection section1 = new CourseSection("001", timeSlots1, 30, course1);
+        CourseSection section1 = course1.createSection(timeSlots1, 30);
 
         List<TimeSlot> timeSlots2 = new ArrayList<>();
         timeSlots2.add(afternoonSlot);
         timeSlots2.add(extraSlot);
-        CourseSection section2 = new CourseSection("002", timeSlots2, 25, course2);
+        CourseSection section2 = course2.createSection(timeSlots2, 25);
 
         // Create Students
         Student student1 = new Student("Alice", "alice@example.com", "password123", false);

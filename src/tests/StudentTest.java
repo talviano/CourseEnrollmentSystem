@@ -12,10 +12,11 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import main.Course;
-import main.CourseSection;
-import main.Student;
-import main.TimeSlot;
+
+import model.Course;
+import model.CourseSection;
+import model.Student;
+import model.TimeSlot;
 
 public class StudentTest {
     public static void main(String[] args) {
@@ -38,16 +39,16 @@ public class StudentTest {
         // Create Course Sections
         List<TimeSlot> timeSlots1 = new ArrayList<>();
         timeSlots1.add(morningSlot);
-        CourseSection smallCapacitySection = new CourseSection("001", timeSlots1, 1, course1);
+        CourseSection smallCapacitySection = course1.createSection(timeSlots1, 1);
 
         List<TimeSlot> timeSlots2 = new ArrayList<>();
         timeSlots2.add(conflictingSlot);
-        CourseSection conflictingSection = new CourseSection("002", timeSlots2, 30, course2);
+        CourseSection conflictingSection = course2.createSection(timeSlots2, 30);
 
         List<TimeSlot> timeSlots3 = new ArrayList<>();
         timeSlots3.add(nonConflictingSlot);
-        CourseSection nonConflictingSection = new CourseSection("003", timeSlots3, 30, course2);
-        CourseSection nonConflictingSectionOfSameCourse = new CourseSection("004", timeSlots3, 30, course1);
+        CourseSection nonConflictingSection = course2.createSection(timeSlots3, 24);
+        CourseSection nonConflictingSectionOfSameCourse = course1.createSection(timeSlots3, 30);
 
         // Test: Enrolling in a course
         System.out.println("\nTEST: Enrolling in ITSC 1242 (9:00 - 10:30 AM)...");

@@ -4,11 +4,12 @@
  *
  * @version Feb 22, 2025
  */
-package main;
+package model;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
+import util.Util;
 
 public class Student extends User {
     private static int lastAssignedId = 800999999;

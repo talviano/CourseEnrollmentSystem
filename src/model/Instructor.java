@@ -4,10 +4,12 @@
  *
  * @version Feb 22, 2025
  */
-package main;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import util.Util;
 
 public class Instructor extends User {
     private static int lastAssignedId = 801999999;

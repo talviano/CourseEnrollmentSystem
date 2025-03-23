@@ -4,10 +4,11 @@
  *
  * @version Feb 23, 2025
  */
-package main;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import util.Util;
 
 public class CourseSection {
     private String sectionId;
@@ -20,13 +21,12 @@ public class CourseSection {
     /**
      * Constructs a CourseSection with specified details.
      *
+     * @param course the course associated with the section
      * @param sectionId the ID of the course section
-     * @param instructor the instructor of the course section
      * @param timeSlots the time slots of the course section
      * @param maxCapacity the maximum capacity of the course section
-     * @param course the course associated with the section
      */
-    public CourseSection(String sectionId, List<TimeSlot> timeSlots, int maxCapacity, Course course) {
+    public CourseSection(Course course, String sectionId, List<TimeSlot> timeSlots, int maxCapacity) {
         this.sectionId = sectionId;
         this.instructor = null;
         this.timeSlots = timeSlots;
@@ -87,10 +87,10 @@ public class CourseSection {
             enrolledStudents.remove(student);
             student.getEnrolledCourses().remove(this);
             System.out.println(
-                    student.getName() + " removed from " + this.course.getName() + "Section: " + this.sectionId);
+                    student.getName() + " removed from " + this.course.getName() + " Section: " + this.sectionId);
             return true;
         }
-        System.out.println("Student is not enrolled in " + this.course.getName() + "Section: " + this.sectionId);
+        System.out.println("Student is not enrolled in " + this.course.getName() + " Section: " + this.sectionId);
         return false;
     }
 
@@ -166,6 +166,15 @@ public class CourseSection {
     }
 
     /**
+     * Returns the size of the course section as a string.
+     *
+     * @return the size of the course section
+     */
+    public String getSize() {
+        return enrolledStudents.size() + "/" + maxCapacity;
+    }
+
+    /**
      * Returns the instructor assigned to the course section.
      *
      * @return the instructor
@@ -217,5 +226,4 @@ public class CourseSection {
         }
         return true;
     }
-
 }
