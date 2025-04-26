@@ -2,6 +2,11 @@
  * Represents a student enrolled in courses.
  * This class provides methods to enroll in, drop, and view courses.
  *
+ * Responsibilities:
+ * - Managing the student's enrolled courses.
+ * - Handling enrollment and dropping of courses.
+ * - Displaying the student's schedule and enrolled courses.
+ *
  * @version Feb 22, 2025
  */
 package model;
@@ -9,6 +14,9 @@ package model;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
+
+import util.ColumnExtractor;
+import util.TablePrinter;
 import util.Util;
 
 public class Student extends User {
@@ -47,12 +55,7 @@ public class Student extends User {
      * existing course.
      *
      * @param course the course section to enroll in
-     * @return {@code true} if enrollment is successful, {@code false} if:
-     *         <ul>
-     *             <li>The student has an advising hold</li>
-     *             <li>The student is already enrolled in another section of the same course</li>
-     *             <li>There is a time conflict with an existing enrolled course</li>
-     *         </ul>
+     * @return {@code true} if enrollment is successful, {@code false} otherwise
      */
     public boolean enroll(CourseSection course) {
         if (advisingHold) {
@@ -62,7 +65,7 @@ public class Student extends User {
         
         for (CourseSection section : enrolledCourses) {
             if (course.getCourse() == section.getCourse()) {
-                System.out.println(this.getName() + "is already registered for: " + course.getCourse().getId());
+                System.out.println(this.getName() + " is already registered for: " + course.getCourse().getId());
                 return false;
             }
             for (TimeSlot existingSlot : section.getTimeSlots()) {
@@ -72,7 +75,6 @@ public class Student extends User {
                         return false;
                     }
                 }
-
             }
         }
         return course.enrollStudent(this);
@@ -91,37 +93,87 @@ public class Student extends User {
     }
 
     /**
-     * Prints the student's schedule to the console in a table format.
+     * Displays the student's schedule, organized by day of the week.
      */
     public void viewSchedule() {
         System.out.println(" ".repeat((39 - "Your Schedule".length()) / 2) + "Your Schedule");
-        Util.createSeperator(39);
-        System.out.print("\n");
-        for (int i = 1; i <= 5; i++) {
-            printClassesForDay(DayOfWeek.of(i));
+
+        // Dynamically calculate max column widths
+        int maxCourseIdWidth = 0;
+        int maxTimeSlotWidth = 0;
+
+        for (CourseSection course : enrolledCourses) {
+            String id = course.getCourse().getId();
+            maxCourseIdWidth = Math.max(maxCourseIdWidth, id.length());
+            for (TimeSlot slot : course.getTimeSlots()) {
+                String formatted = Util.formatTimeSlot(slot);
+                maxTimeSlotWidth = Math.max(maxTimeSlotWidth, formatted.length());
+            }
         }
-        
+
+        // Add padding to make things look nice
+        maxCourseIdWidth += 4; // For spacing/padding
+        maxTimeSlotWidth += 4;
+
+        System.out.println(); // spacing
+        for (int i = 1; i <= 5; i++) {
+            printClassesForDay(DayOfWeek.of(i), maxCourseIdWidth, maxTimeSlotWidth);
+        }
     }
-    
+
     /**
-     * Prints all of the student's classes for a specific day of the week in a table format
+     * Displays the list of courses the student is enrolled in as a formatted table.
+     */
+    public void viewEnrolledCourses() {
+        if (enrolledCourses.isEmpty()) {
+            System.out.println("No assigned courses");
+            return;
+        }
+
+        List<String> headers = List.of("Course", "Sect", "Size", "Time Slots");
+
+        List<ColumnExtractor<CourseSection>> extractors = List.of(
+            section -> section.getCourse().getId(),
+            CourseSection::getSectionId,
+            section -> section.getEnrolledCount() + "/" + section.getMaxCapacity(),
+            CourseSection::getTimeSlotsFormatted
+        );
+
+        TablePrinter<CourseSection> printer = new TablePrinter<>(headers, extractors, enrolledCourses);
+        printer.printTable();
+    }
+
+    /**
+     * Prints the classes for a specific day of the week.
      *
      * @param day the day of the week
+     * @param courseColWidth the width of the course column
+     * @param timeColWidth the width of the time column
      */
-    public void printClassesForDay(DayOfWeek day) {
-        System.out.println(" ".repeat((39 - day.toString().length()) / 2) + day);
-        Util.createTableSeperator(new int[]{39, 28});
+    public void printClassesForDay(DayOfWeek day, int courseColWidth, int timeColWidth) {
+        System.out.println(" ".repeat((courseColWidth + timeColWidth + 7 - day.toString().length()) / 2) + day);
+        Util.createTableSeperator(new int[]{courseColWidth, timeColWidth});
+        System.out.printf("| %-" + courseColWidth + "s | %-" + timeColWidth + "s |\n", "Course", "Time Slot");
+        Util.createTableSeperator(new int[]{courseColWidth, timeColWidth});
+    
+        boolean printed = false;
         for (CourseSection course : enrolledCourses) {
             for (TimeSlot slot : course.getTimeSlots()) {
                 if (slot.getDay().equals(day)) {
-                    System.out.println("|  " + course.getCourse().getId() + "  |  "
-                            + Util.formatTimeSlot(slot) + "  |");
+                    System.out.printf("| %-" + courseColWidth + "s | %-" + timeColWidth + "s |\n",
+                            course.getCourse().getId(),
+                            Util.formatTimeSlot(slot));
+                    printed = true;
                 }
             }
-            
         }
-        Util.createTableSeperator(new int[]{39, 28});
-        System.out.print("\n");
+    
+        if (!printed) {
+            System.out.printf("| %-" + (courseColWidth + timeColWidth + 5) + "s |\n", "No classes");
+        }
+    
+        Util.createTableSeperator(new int[]{courseColWidth, timeColWidth});
+        System.out.println();
     }
 
     /**
@@ -133,4 +185,12 @@ public class Student extends User {
         return enrolledCourses;
     }
 
+    /**
+     * Checks if the student has an advising hold.
+     *
+     * @return {@code true} if the student has an advising hold, {@code false} otherwise
+     */
+    public boolean hasAdvisingHold() {
+        return advisingHold;
+    }
 }

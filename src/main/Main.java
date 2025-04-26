@@ -8,11 +8,18 @@
  */
 package main;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import model.*;
 import system.AccountManager;
 import system.EnrollmentSystem;
+import ui.InstructorPage;
 import ui.LoginPage;
+import ui.admin.AdminPage;
+import ui.student.StudentPage;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,20 +28,31 @@ public class Main {
         EnrollmentSystem enrollmentSystem = new EnrollmentSystem();
         LoginPage loginPage = new LoginPage(accountManager);
 
+        Admin mockAdmin = new Admin("Admin Admin", "a", "a");
+        accountManager.addUser(mockAdmin);
+        mockAdmin.grantAllPermissions();
+
         while (true) {
-            loginPage.displayMenu();
+            loginPage.display();
             User currentUser = loginPage.getCurrentUser();
 
-            if (currentUser instanceof Student) {
-                System.out.println("Redirecting to Student Page");
-                break;
-            } else if (currentUser instanceof Instructor) {
-                System.out.println("Redirecting to Instructor Page");
-                break;
-            } else if (currentUser instanceof Admin) {
-                System.out.println("Redirecting to Admin Page");
-                break;
+            if (currentUser == null) {
+                System.out.println("Exiting program. Goodbye!");
+                break; 
             }
+
+            if (currentUser instanceof Student student) {
+                StudentPage studentPage = new StudentPage(student, enrollmentSystem);
+                studentPage.display();
+            } else if (currentUser instanceof Instructor instructor) {
+                InstructorPage instructorPage = new InstructorPage(instructor, enrollmentSystem);
+                instructorPage.display();
+            } else if (currentUser instanceof Admin admin) {
+                AdminPage adminPage = new AdminPage(admin, enrollmentSystem, accountManager);
+                adminPage.display();
+            }
+
+            loginPage.clearCurrentUser();
         }
         input.close();
     }

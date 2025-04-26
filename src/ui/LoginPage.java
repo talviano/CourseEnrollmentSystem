@@ -6,51 +6,98 @@
  * This class is part of the UI layer and interacts with the AccountManager
  * to authenticate users.
  *
+ * Responsibilities:
+ * - Displaying the login menu.
+ * - Authenticating users based on their email and password.
+ * - Managing the current logged-in user.
+ * - Allowing users to exit the login page.
+ *
  * Usage:
  * LoginPage loginPage = new LoginPage(accountManager);
- * loginPage.displayMenu();
+ * loginPage.display();
  *
  * @version Mar 22, 2025
  */
 package ui;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.List;
 import model.User;
 import system.AccountManager;
 import util.Util;
 
-public class LoginPage {
+public class LoginPage extends Page {
     private AccountManager accountManager;
     private User currentUser;
+    private boolean shouldExit = false;
 
-    static Scanner input = new Scanner(System.in);
-    
     /**
      * Constructs a LoginPage with the specified AccountManager.
      *
-     * @param accountManager the account manager to handle user authentication
+     * @param accountManager the account manager to interact with for user authentication
      */
     public LoginPage(AccountManager accountManager) {
+        super(null);
         this.accountManager = accountManager;
     }
 
     /**
-     * Prompts the user for email and password, and attempts to log in.
+     * Returns the menu options specific to the LoginPage.
      *
-     * @return true if login is successful, false otherwise
+     * @return a list of menu option strings
      */
-    public boolean login() {
+    @Override
+    protected List<String> getMenuOptions() {
+        return List.of("Login", "Exit");
+    }
+
+    /**
+     * Returns the title of the menu for the LoginPage.
+     *
+     * @return the menu title
+     */
+    @Override
+    protected String getMenuTitle() {
+        return "Login Menu"; 
+    }
+
+    /**
+     * Handles the action corresponding to the user's menu choice.
+     *
+     * @param choice the user's menu choice
+     */
+    @Override
+    protected void handleAction(int choice) {
+        switch (choice) {
+            case 1:
+                if (login()) {
+                    return;
+                }
+                break;
+            case 2:
+                shouldExit = true;
+                break;
+            default:
+                System.out.println("Invalid option.");
+        }
+    }
+
+    /**
+     * Authenticates the user by prompting for email and password.
+     *
+     * @return {@code true} if the login is successful, {@code false} otherwise
+     */
+    private boolean login() {
         Util.createSeperator(50);
         System.out.print("Email: ");
-        String email = input.next();
+        String email = input.nextLine().strip();
         Util.createSeperator(50);
         System.out.print("Password: ");
-        String password = input.next();
+        String password = input.nextLine().strip();
         Util.createSeperator(50);
+
         User loggedInUser = accountManager.authenticate(email, password);
         if (loggedInUser == null) {
-            System.out.println("Invalid Credentials Try Again\n");
+            System.out.println("Invalid Credentials. Try Again.\n");
             return false;
         } else {
             System.out.println("Login successful. Welcome " + loggedInUser.getName() + ".\n");
@@ -60,44 +107,35 @@ public class LoginPage {
     }
 
     /**
-     * Displays the login menu and handles user input.
-     */
-    public void displayMenu() {
-        String[] menuOptions = { "Login", "Exit" };
-        while (true) {
-            Util.createMenu("Login Menu", menuOptions);
-            try {
-                int choice = input.nextInt();
-                if (Util.isValidMenuChoice(choice, 2)) {
-                    switch (choice) {
-                        case 1:
-                            System.out.println("\n\n\nLogin");
-                            if (!login()) {
-                                continue;
-                            }
-                            break; // if you don't add this break the program will go into case 2 ending the program
-                        case 2:
-                            System.exit(0);
-                            break;
-                    }
-                } else {
-                    System.out.println("Please select a valid menu option!");
-                    continue;
-                }
-                break;
-            } catch (InputMismatchException e) {
-                input.nextLine();
-                System.out.println("Invalid input. Please enter a number!\n");
-            }
-        }
-    }
-    
-    /**
      * Returns the currently logged-in user.
      *
-     * @return the current user
+     * @return the current user, or {@code null} if no user is logged in
      */
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    /**
+     * Clears the currently logged-in user.
+     */
+    public void clearCurrentUser() {
+        this.currentUser = null;
+    }
+
+    /**
+     * Displays the login page and handles user interactions.
+     * The method continues to display the menu until the user logs in
+     * or chooses to exit.
+     */
+    @Override
+    public void display() {
+        while (!shouldExit && currentUser == null) {
+            int choice = displayMenu();
+            handleAction(choice);
+    
+            if (currentUser != null || shouldExit) {
+                break;
+            }
+        }
     }
 }

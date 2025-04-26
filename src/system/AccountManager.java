@@ -1,9 +1,15 @@
 /**
- * TODO Write a one-sentence summary of your class here.
- * TODO Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Manages user accounts in the course registration system.
+ * This class provides methods to authenticate users, create new users,
+ * and manage existing users. It also generates default credentials
+ * for new users and displays user information in a formatted table.
  *
- * @author  TODO Your Name
+ * Responsibilities:
+ * - Authenticating users based on email and password.
+ * - Creating and managing users (students, instructors, and admins).
+ * - Generating email addresses and default passwords for users.
+ * - Displaying user information in a formatted table.
+ *
  * @version Feb 24, 2025
  */
 package system;
@@ -16,7 +22,8 @@ import model.Admin;
 import model.Instructor;
 import model.Student;
 import model.User;
-import util.Util;
+import util.ColumnExtractor;
+import util.TablePrinter;
 
 public class AccountManager {
     private List<User> users;
@@ -42,7 +49,7 @@ public class AccountManager {
         } else if (email.equals("studentoveride")) {
             return new Student("Student", "studentoveride", "studentoveride", false);
         } else if (email.equals("instructoroveride")) {
-            return new Instructor("Instructor", "instructoroveride", "studnetoveride");
+            return new Instructor("Instructor", "instructoroveride", "instructoroveride");
         }
         for (User user : users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
@@ -51,44 +58,53 @@ public class AccountManager {
         }
         return null;
     }
-    
+
     /**
-     * Registers a student in the system.
+     * Adds a user to the system.
      *
-     * @param student the student to register
-     * @return true if the student is registered successfully, false otherwise
+     * @param user the user to add
+     * @return true if the user is added successfully, false otherwise
      */
-    public boolean addStudent(Student student) {
-        if (users.contains(student)) {
-            System.out.println("Student already exists");
+    public boolean addUser(User user) {
+        if (users.contains(user)) {
+            System.out.println("User already exists");
             return false;
         }
-        if (student == null) {
-            System.out.println("Invalid Student");
+        if (user == null) {
+            System.out.println("Invalid User");
             return false;
         }
-        users.add(student);
+        users.add(user);
         return true;
-        
     }
 
     /**
-     * Registers an instructor in the system.
+     * Removes a user from the system.
      *
-     * @param instructor the instructor to register
-     * @return true if the instructor is registered successfully, false otherwise
+     * @param user the user to remove
+     * @return true if the user is removed successfully, false otherwise
      */
-    public boolean addInstructor(Instructor instructor) {
-        if (users.contains(instructor)) {
-            System.out.println("Instructor already exists");
+    public boolean removeUser(User user) {
+        if (user == null || !users.contains(user)) {
+            System.out.println("User does not exist.");
             return false;
         }
-        if (instructor == null) {
-            System.out.println("Invalid Instructor");
-            return false;
+        return users.remove(user);
+    }
+
+    /**
+     * Retrieves a user by their ID or email.
+     *
+     * @param value the ID or email of the user
+     * @return the User object if found, or null if not found
+     */
+    public User getUserByIdOrEmail(String value) {
+        for (User user : users) {
+            if (user.getEmail().equals(value) || user.getId().equals(value)) {
+                return user;
+            }
         }
-        users.add(instructor);
-        return true;
+        return null;
     }
 
     /**
@@ -101,9 +117,8 @@ public class AccountManager {
         String name = input.nextLine();
         String email = generateEmail(name, domain);
         String password = generateDefaultPassword(name);
-        System.out.print("Is there an advising hold on this student (y/n): ");
-        boolean advisingHold = input.nextBoolean();
-        addStudent(new Student(name, email, password, advisingHold));
+        boolean advisingHold = false;
+        addUser(new Student(name, email, password, advisingHold));
         System.out.println("Student Created.\n");
     }
 
@@ -117,10 +132,24 @@ public class AccountManager {
         String name = input.nextLine();
         String email = generateEmail(name, domain);
         String password = generateDefaultPassword(name);
-        addInstructor(new Instructor(name, email, password));
+        addUser(new Instructor(name, email, password));
         System.out.println("Instructor Created.\n");
     }
-    
+
+    /**
+     * Creates an admin by taking input from the user.
+     *
+     * @param input the Scanner object to read user input
+     */
+    public void createAdmin(Scanner input) {
+        System.out.print("Name (First Last): ");
+        String name = input.nextLine();
+        String email = generateEmail(name, domain);
+        String password = generateDefaultPassword(name);
+        addUser(new Admin(name, email, password));
+        System.out.println("Admin Created.\n");
+    }
+
     /**
      * Generates an email address for a user based on their name and domain.
      *
@@ -129,27 +158,18 @@ public class AccountManager {
      * @return the generated email address
      */
     public String generateEmail(String name, String domain) {
-
-        // get baseEmail
-        String baseEmail = "";
-        String firstName = name.split("\\s+")[0];
-        String lastName = name.split("\\s+")[1];
-        baseEmail += firstName.toLowerCase().charAt(0);
-        baseEmail += lastName.toLowerCase();
-
-        // name cannot be empty
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty or null.");
         }
 
-        // if no users exists just use default email
+        String baseEmail = name.split("\\s+")[0].toLowerCase().charAt(0) +
+                           name.split("\\s+")[1].toLowerCase();
+
         if (users.isEmpty()) {
             return baseEmail + "@" + domain;
         }
 
         int max = 0;
-
-        // find number of matching bases that exist
         boolean baseExists = false;
         for (User user : users) {
             if (user.getEmail().startsWith(baseEmail)) {
@@ -161,7 +181,6 @@ public class AccountManager {
             }
         }
 
-        // if base exists then add one to the number after the base, other wise return a regular email
         return baseExists ? baseEmail + (max + 1) + "@" + domain : baseEmail + "@" + domain;
     }
 
@@ -185,18 +204,16 @@ public class AccountManager {
             System.out.println("There are no users");
             return;
         }
-        int[] stringWidths = {Util.getMaxUserNameWidth(this), 9, Util.getMaxUserEmailWidth(this)};
-        String nameColumn = "| %-" + Util.getMaxUserNameWidth(this) + "s |";
-        String idColumn = " %-9s |";
-        String emailColumn = " %-" + Util.getMaxUserEmailWidth(this) + "s |\n";
-        String rowFormat = nameColumn + idColumn + emailColumn;
-        Util.createTableSeperator(stringWidths);
-        System.out.printf(rowFormat, "Name", "Id", "Email");
-        Util.createTableSeperator(stringWidths);
-        for (User user : users) {
-            System.out.printf(rowFormat, user.getName(), user.getId(), user.getEmail());
-            Util.createTableSeperator(stringWidths);
-        }
+        List<String> headers = List.of("Name", "Id", "Email");
+
+        List<ColumnExtractor<User>> extractors = List.of(
+            User::getName,
+            User::getId,
+            User::getEmail
+        );
+
+        TablePrinter<User> printer = new TablePrinter<>(headers, extractors, users);
+        printer.printTable();
     }
 
     /**
@@ -207,6 +224,38 @@ public class AccountManager {
     public List<User> getUsers() {
         return users;
     }
-    
 
+    /**
+     * Sets advising holds to true for all students in the system.
+     */
+    public void setAllAdvisingHoldsTrue() {
+        for (User user : users) {
+            if (user instanceof Student student) {
+                student.setAdvisingHold(true);
+            }
+        }
+    }
+
+    /**
+     * Displays all admins in the system in a formatted table.
+     */
+    public void viewAllAdmins() {
+        List<Admin> admins = new ArrayList<>();
+        for (User user : users) {
+            if (user instanceof Admin admin) {
+                admins.add(admin);
+            }
+        }
+
+        List<String> headers = List.of("Name", "Email", "Permissions");
+
+        List<ColumnExtractor<Admin>> extractors = List.of(
+            Admin::getName,
+            Admin::getEmail,
+            Admin::getPermissionsFormatted
+        );
+
+        TablePrinter<Admin> printer = new TablePrinter<>(headers, extractors, admins);
+        printer.printTable();
+    }
 }

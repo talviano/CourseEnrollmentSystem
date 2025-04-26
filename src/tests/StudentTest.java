@@ -19,7 +19,7 @@ import model.Student;
 import model.TimeSlot;
 
 public class StudentTest {
-    public static void main(String[] args) {
+    public static void main(List<String> args) {
         System.out.println("########################################################");
         System.out.println("TESTING STUDENT CLASS FUNCTIONALITY...");
 

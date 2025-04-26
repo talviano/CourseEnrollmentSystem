@@ -7,6 +7,7 @@
 package util;
 
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.List;
 import model.Course;
 import model.CourseSection;
@@ -59,7 +60,7 @@ public class Util {
      * @param name the name of the menu
      * @param actions the actions to be included in the menu
      */
-    public static void createMenu(String name, String[] actions) {
+    public static void createMenu(String name, List<String> actions) {
         String longest = "";
         for (String action : actions) {
             if (action.length() > longest.length()) {
@@ -73,8 +74,8 @@ public class Util {
         createSeperator(length);
         System.out.println(name);
         createSeperator(length);
-        for (int i = 0; i < actions.length; i++) {
-            System.out.println("[" + (i + 1) + "] " + actions[i]);
+        for (int i = 0; i < actions.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + actions.get(i));
         }
         createSeperator(length);
     }
@@ -139,7 +140,6 @@ public class Util {
         for (Course course : courses) {
             for (CourseSection section : course.getSections()) {
                 max = Math.max(max, section.getTimeSlotsFormatted().length());
-                System.out.println(section.getTimeSlotsFormatted());
             }
         }
         return max;
@@ -226,13 +226,13 @@ public class Util {
      * @return true if the input is "y", false otherwise
      */
     public static boolean yesNoToBoolean(String input) {
-        switch (input.trim().toLowerCase()) {
+        switch (input.strip().toLowerCase()) {
             case "y":
                 return true;
             case "n":
                 return false;
             default:
-                return false; 
+                throw new InputMismatchException(input + " is an invalid input. Please enter (y/n).");
         }
     }
 }

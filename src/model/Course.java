@@ -1,6 +1,12 @@
 /**
  * Represents a course that students can enroll in.
- * This class provides methods to check prerequisites and manage course sections.
+ * This class provides methods to check prerequisites, manage course sections,
+ * and retrieve course details such as ID, name, description, and credits.
+ *
+ * Responsibilities:
+ * - Managing course sections.
+ * - Checking if a student meets the prerequisites for the course.
+ * - Providing course details such as ID, name, description, and credits.
  *
  * @version Feb 22, 2025
  */
@@ -15,8 +21,6 @@ public class Course {
     private String description;
     private int credits;
     private List<CourseSection> sections;
-    private String crn;
-    private static int lastAssignedCrn = 10000;
     private static int sectionCount = 0;
 
     /**
@@ -33,7 +37,6 @@ public class Course {
         this.description = description;
         this.credits = credits;
         this.sections = new ArrayList<>();
-        this.crn = String.valueOf(++lastAssignedCrn);
     }
 
     /**
@@ -65,6 +68,15 @@ public class Course {
     }
 
     /**
+     * Returns the description of the course.
+     *
+     * @return the course description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Returns the number of credits for the course.
      *
      * @return the number of credits
@@ -88,6 +100,22 @@ public class Course {
     }
 
     /**
+     * Removes a course section from the course.
+     *
+     * @param section the course section to remove
+     * @return true if the section is removed successfully, false otherwise
+     */
+    public boolean removeCourseSection(CourseSection section) {
+        if (!this.sections.contains(section)) {
+            System.out.println("Section does not exist");
+            return false;
+        }
+        this.sections.remove(section);
+        System.out.println(this.getId() + "- Section" + section.getSectionId() + " deleted successfully.");
+        return true;
+    }
+
+    /**
      * Returns the list of sections for the course.
      *
      * @return the list of sections
@@ -97,7 +125,7 @@ public class Course {
     }
 
     /**
-     * Returns the total number of sections created.
+     * Returns the total number of sections created for the course.
      *
      * @return the total number of sections
      */

@@ -9,6 +9,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.TablePrinter;
+import util.ColumnExtractor;
 import util.Util;
 
 public class Instructor extends User {
@@ -42,6 +44,12 @@ public class Instructor extends User {
         return true;
     }
 
+    /**
+     * Removes a course assignment from the instructor.
+     *
+     * @param section the course section to remove
+     * @return true if the course assignment is removed successfully, false otherwise
+     */
     public boolean removeCourseAssignment(CourseSection section) {
         if (this == section.getInstructor()) {
             section.assignInstructor(null);
@@ -52,7 +60,7 @@ public class Instructor extends User {
     }
 
     /**
-     * Returns the list of courses assigned to the instructor as a string.
+     * Returns the list of courses assigned to the instructor.
      *
      * @return the list of assigned courses
      */
@@ -60,35 +68,35 @@ public class Instructor extends User {
         return assignedCourses;
     }
 
-    public void viewAssignedCourses() {
-        int maxTimeSlotsWidth = Util.getMaxScheduleWidth(this);
-        int[] stringWidths = new int[] { 9, 5, 4, Util.getMaxScheduleWidth(this) };
+    /**
+     * Displays the list of courses assigned to the instructor.
+     */
+    public void viewAssignedSections() {
         if (assignedCourses.isEmpty()) {
-            System.out.println("No assigned courses");
-            return;
+        System.out.println("No assigned courses");
+        return;
         }
-        int count = 0;
-        for (CourseSection section : assignedCourses) {
-            if (count == 0) {
-                Util.createTableSeperator(stringWidths);
-                System.out.printf("| %-9s | %-5s | %-4s | %-" + maxTimeSlotsWidth + "s |\n",
-                        "Course",
-                        "Sect",
-                        "Size",
-                        "Time Slots");
-                count++;
-            }
-            Util.createTableSeperator(stringWidths);
-            System.out.printf("| %s | %s | %s | %-" + maxTimeSlotsWidth + "s |\n",
-                    section.getCourse().getId(),
-                    " " + section.getSectionId() + " ",
-                    section.getEnrolledCount() + "/" + section.getMaxCapacity(),
-                    section.getTimeSlotsFormatted());
-        }
-        Util.createTableSeperator(stringWidths);
 
+        List<String> headers = List.of("Course", "Sect", "CRN", "Size", "Time Slots");
+
+        List<ColumnExtractor<CourseSection>> extractors = List.of(
+            section -> section.getCourse().getId(),
+            CourseSection::getCRN,       
+            CourseSection::getSectionId,
+            section -> section.getEnrolledCount() + "/" + section.getMaxCapacity(),
+            CourseSection::getTimeSlotsFormatted
+        );
+
+        TablePrinter<CourseSection> printer = new TablePrinter<>(headers, extractors, assignedCourses);
+        printer.printTable();
     }
     
+    /**
+     * Views the roster of a specific course section.
+     *
+     * @param section the course section to view the roster of
+     * @return true if the roster is viewed successfully, false otherwise
+     */
     public boolean viewSectionRoster(CourseSection section) {
         if (assignedCourses.contains(section)) {
             section.viewEnrolledStudents();

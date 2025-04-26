@@ -26,13 +26,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
-    /**
-     * Logs out the user from the system.
-     */
-    public void logout() {
-        // TODO: Implement logout logic
-    }
     
     /**
      * Returns the email of the user.

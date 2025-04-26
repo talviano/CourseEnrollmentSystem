@@ -18,7 +18,7 @@ import model.Student;
 import model.TimeSlot;
 
 public class InstructorTest {
-    public static void main(String[] args) {
+    public static void main(List<String> args) {
         System.out.println("########################################################");
         System.out.println("TESTING INSTRUCTOR CLASS FUNCTIONALITY...");
 
@@ -78,7 +78,7 @@ public class InstructorTest {
         // Test: Viewing assigned courses
         instructor.assignCourse(section2);
         System.out.println("\nTEST: Viewing assigned courses with varying time slot counts...");
-        instructor.viewAssignedCourses();
+        instructor.viewAssignedSections();
 
         // Test: Viewing section roster (should succeed)
         System.out.println("\nTEST: Viewing roster for assigned section 001 with enrolled students...");
