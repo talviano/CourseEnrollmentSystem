@@ -24,7 +24,7 @@ public class Main {
         EnrollmentSystem enrollmentSystem = new EnrollmentSystem();
         LoginPage loginPage = new LoginPage(accountManager);
 
-        Admin mockAdmin = new Admin("Admin Admin", "a", "a");
+        Admin mockAdmin = new Admin("System Admin", "sysadmin@university.edu", "temppass");
         accountManager.addUser(mockAdmin);
         mockAdmin.grantAllPermissions();
 
