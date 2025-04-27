@@ -77,7 +77,7 @@ public class CourseSectionsPage extends Page {
     public void handleAction(int choice) {
         switch (getSelectedOption(choice)) {
             case "Create new section":
-                enrollmentSystem.createCourseSection(input);
+                enrollmentSystem.createCourseSection();
                 break;
             case "View all sections":
                 enrollmentSystem.viewAllSections();

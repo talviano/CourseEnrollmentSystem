@@ -28,6 +28,7 @@ import util.TablePrinter;
 public class AccountManager {
     private List<User> users;
     private static final String domain = "university.edu";
+    private final Scanner input = new Scanner(System.in);
 
     /**
      * Constructs an AccountManager with an empty list of users.
@@ -109,10 +110,8 @@ public class AccountManager {
 
     /**
      * Creates a student by taking input from the user.
-     *
-     * @param input the Scanner object to read user input
      */
-    public void createStudent(Scanner input) {
+    public void createStudent() {
         System.out.print("Name (First Last): ");
         String name = input.nextLine();
         String email = generateEmail(name, domain);
@@ -124,10 +123,8 @@ public class AccountManager {
 
     /**
      * Creates an instructor by taking input from the user.
-     *
-     * @param input the Scanner object to read user input
      */
-    public void createInstructor(Scanner input) {
+    public void createInstructor() {
         System.out.print("Name (First Last): ");
         String name = input.nextLine();
         String email = generateEmail(name, domain);
@@ -138,10 +135,8 @@ public class AccountManager {
 
     /**
      * Creates an admin by taking input from the user.
-     *
-     * @param input the Scanner object to read user input
      */
-    public void createAdmin(Scanner input) {
+    public void createAdmin() {
         System.out.print("Name (First Last): ");
         String name = input.nextLine();
         String email = generateEmail(name, domain);

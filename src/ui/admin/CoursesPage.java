@@ -75,7 +75,7 @@ public class CoursesPage extends Page {
     public void handleAction(int choice) {
         switch (getSelectedOption(choice)) {
             case "Create new course":
-                enrollmentSystem.createCourse(input);
+                enrollmentSystem.createCourse();
                 break;
             case "View all courses":
                 enrollmentSystem.viewAllCourses();

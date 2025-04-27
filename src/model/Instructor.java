@@ -11,7 +11,6 @@ import java.util.List;
 
 import util.TablePrinter;
 import util.ColumnExtractor;
-import util.Util;
 
 public class Instructor extends User {
     private static int lastAssignedId = 801999999;

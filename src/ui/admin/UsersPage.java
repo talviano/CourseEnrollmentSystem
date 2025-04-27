@@ -102,13 +102,13 @@ public class UsersPage extends Page {
 
             switch (userType) {
                 case "student":
-                    accountManager.createStudent(input);
+                    accountManager.createStudent();
                     break;
                 case "instructor":
-                    accountManager.createInstructor(input);
+                    accountManager.createInstructor();
                     break;
                 case "admin":
-                    accountManager.createAdmin(input);
+                    accountManager.createAdmin();
                     break;
                 default:
                     System.out.println(userType + " is an invalid user type. Please enter either Student, Instructor, or Admin.");

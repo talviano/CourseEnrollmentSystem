@@ -42,6 +42,7 @@ public class Admin extends User {
      * The message displayed when an admin attempts an action without the required permission.
      */
     private static String noPermissionString = "You do not have permission for this action.";
+    private Scanner input = new Scanner(System.in);
 
     /**
      * Constructs an Admin with specified details.
@@ -112,9 +113,9 @@ public class Admin extends User {
      * @param input the Scanner object to read user input
      * @return true if the course is created successfully, false otherwise
      */
-    public boolean createCourse(EnrollmentSystem enrollmentSystem, Scanner input) {
+    public boolean createCourse(EnrollmentSystem enrollmentSystem) {
         if (this.hasPermission(Permissions.COURSE_MANAGEMENT)) {
-            enrollmentSystem.createCourse(input);
+            enrollmentSystem.createCourse();
             return true;
         }
         System.out.println(noPermissionString);
@@ -128,9 +129,9 @@ public class Admin extends User {
      * @param input the Scanner object to read user input
      * @return true if the course section is created successfully, false otherwise
      */
-    public boolean createCourseSection(EnrollmentSystem enrollmentSystem, Scanner input) {
+    public boolean createCourseSection(EnrollmentSystem enrollmentSystem) {
         if (this.hasPermission(Permissions.COURSE_MANAGEMENT)) {
-            enrollmentSystem.createCourseSection(input);
+            enrollmentSystem.createCourseSection();
             return true;
         }
         System.out.println(noPermissionString);
@@ -144,9 +145,9 @@ public class Admin extends User {
      * @param input the Scanner object to read user input
      * @return true if the student is created successfully, false otherwise
      */
-    public boolean createStudent(AccountManager accountManager, Scanner input) {
+    public boolean createStudent(AccountManager accountManager) {
         if (this.hasPermission(Permissions.USER_MANAGEMENT)) {
-            accountManager.createStudent(input);
+            accountManager.createStudent();
             return true;
         }
         System.out.println(noPermissionString);
@@ -160,9 +161,9 @@ public class Admin extends User {
      * @param input the Scanner object to read user input
      * @return true if the instructor is created successfully, false otherwise
      */
-    public boolean createInstructor(AccountManager accountManager, Scanner input) {
+    public boolean createInstructor(AccountManager accountManager) {
         if (this.hasPermission(Permissions.USER_MANAGEMENT)) {
-            accountManager.createInstructor(input);
+            accountManager.createInstructor();
             return true;
         }
         System.out.println(noPermissionString);
@@ -176,9 +177,9 @@ public class Admin extends User {
      * @param input the Scanner object to read user input
      * @return true if the admin is created successfully, false otherwise
      */
-    public boolean createAdmin(AccountManager accountManager, Scanner input) {
+    public boolean createAdmin(AccountManager accountManager) {
         if (this.hasPermission(Permissions.USER_MANAGEMENT)) {
-            accountManager.createAdmin(input);
+            accountManager.createAdmin();
             return true;
         }
         System.out.println(noPermissionString);

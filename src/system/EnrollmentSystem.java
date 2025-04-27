@@ -32,6 +32,7 @@ import util.Util;
 public class EnrollmentSystem {
     private List<Course> courses;
     private static int crn = 10000;
+    private final Scanner input = new Scanner(System.in);
 
     /**
      * Constructs an EnrollmentSystem with an empty list of courses.
@@ -97,10 +98,8 @@ public class EnrollmentSystem {
 
     /**
      * Creates a course by taking input from the user.
-     *
-     * @param input the Scanner object to read user input
      */
-    public void createCourse(Scanner input) {
+    public void createCourse() {
         System.out.print("Id (e.g., MATH 1241): ");
         String id = input.nextLine();
         System.out.print("Name (e.g., Calculus 1): ");
@@ -118,9 +117,8 @@ public class EnrollmentSystem {
      * Creates a course section by taking input from the user.
      * This method prompts the user for course ID, maximum capacity, and time slots.
      *
-     * @param input the Scanner object to read user input
      */
-    public void createCourseSection(Scanner input) {
+    public void createCourseSection() {
         if (courses.isEmpty()) {
             System.out.println("You must create a course first.");
             return;
@@ -297,11 +295,11 @@ public class EnrollmentSystem {
     /**
      * Parses a day of the week from a string input.
      *
-     * @param input the string input representing the day of the week
+     * @param day the string input representing the day of the week
      * @return the corresponding DayOfWeek object, or null if the input is invalid
      */
-    private DayOfWeek parseDayOfWeek(String input) {
-        switch (input.strip().toUpperCase()) {
+    private DayOfWeek parseDayOfWeek(String day) {
+        switch (day.strip().toUpperCase()) {
             case "M":
                 return DayOfWeek.MONDAY;
             case "T":
@@ -321,13 +319,13 @@ public class EnrollmentSystem {
     /**
      * Parses a time from a string input.
      *
-     * @param input the string input representing the time
+     * @param day the string input representing the time
      * @return the corresponding LocalTime object
      */
-    private LocalTime parseTime(String input) {
-        input = input.strip().toUpperCase();
+    private LocalTime parseTime(String time) {
+        time = time.strip().toUpperCase();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
-        return LocalTime.parse(input, formatter);
+        return LocalTime.parse(time, formatter);
     }
 
     /**
