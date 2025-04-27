@@ -235,4 +235,29 @@ public class Util {
                 throw new InputMismatchException(input + " is an invalid input. Please enter (y/n).");
         }
     }
+
+    /**
+     * Converts a input string to title case
+     *
+     * @param input the input string
+     * @return string in title case
+     */
+    public static String toTitleCase(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+    
+        String[] words = input.strip().toLowerCase().split("\\s+"); // split on spaces
+        StringBuilder titleCase = new StringBuilder();
+    
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                titleCase.append(Character.toUpperCase(word.charAt(0)));
+                titleCase.append(word.substring(1));
+                titleCase.append(" ");
+            }
+        }
+    
+        return titleCase.toString().strip();
+    }
 }

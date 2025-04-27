@@ -11,6 +11,7 @@ public class User {
     private String name; 
     private String email;
     private String password;
+    private boolean needsPasswordReset = true;
     
     /**
      * Constructs a User with specified details.
@@ -61,5 +62,17 @@ public class User {
      */
     public String getId() {
         return id;
+    }
+
+    public boolean needsPasswordReset() {
+        return needsPasswordReset;
+    }
+
+    public void setNeedsPasswordReset(boolean needsPasswordReset) {
+        this.needsPasswordReset = needsPasswordReset;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -111,7 +111,7 @@ public class Course {
             return false;
         }
         this.sections.remove(section);
-        System.out.println(this.getId() + "- Section" + section.getSectionId() + " deleted successfully.");
+        System.out.println(this.getId() + ": Section " + section.getSectionId() + " deleted successfully.");
         return true;
     }
 

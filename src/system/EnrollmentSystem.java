@@ -127,13 +127,14 @@ public class EnrollmentSystem {
         Course course = null;
         while (course == null) {
             System.out.print("Course ID (ABCD 1234): ");
-            String id = input.nextLine().strip();
-            course = getCourseById(id);
+            String id = input.nextLine().strip().toUpperCase();
 
             if (!id.matches("^[A-Z]{4} \\d{4}$")) {
                 System.out.println("Invalid format. Course ID must be in the format ABCD 1234 (e.g., MATH 1241).");
                 continue;
             }
+
+            course = getCourseById(id);
 
             if (course == null) {
                 System.out.println("Invalid course ID. Please enter a valid course ID.");
@@ -243,7 +244,7 @@ public class EnrollmentSystem {
             section -> String.valueOf(section.getCourse().getCredits()),
             CourseSection::getTimeSlotsFormatted,
             CourseSection::getSize,
-            section -> section.getInstructor().getName()         
+            section -> section.getInstructor() != null ? section.getInstructor().getName() : ""     
         );
 
         List<CourseSection> sections = new ArrayList<>();
@@ -285,7 +286,7 @@ public class EnrollmentSystem {
      */
     public Course getCourseById(String id) {
         for (Course course : courses) {
-            if (course.getId().equals(id)) {
+            if (course.getId().equalsIgnoreCase(id)) {
                 return course;
             }
         }

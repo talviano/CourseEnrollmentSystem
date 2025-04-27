@@ -160,6 +160,7 @@ public class EnrollmentPage extends Page {
         CourseSection section = enrollmentSystem.findCourseByCRN(crn);
         String value = promptUserId();
         User user = accountManager.getUserByIdOrEmail(value);
+        
         if (user instanceof Instructor instructor) {
             section.assignInstructor(instructor);
             System.out.println("Assigned " + instructor.getName() + " to " + section.getCourse().getId() + " Section "

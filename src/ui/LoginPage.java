@@ -97,9 +97,17 @@ public class LoginPage extends Page {
 
         User loggedInUser = accountManager.authenticate(email, password);
         if (loggedInUser == null) {
-            System.out.println("Invalid Credentials. Try Again.\n");
+            System.out.println("Invalid Credentials Try Again\n");
             return false;
         } else {
+            if (loggedInUser.needsPasswordReset()) {
+                System.out.println("You must change your password before continuing.");
+                System.out.print("Enter new password: ");
+                String newPassword = input.nextLine();
+                loggedInUser.setPassword(newPassword);
+                loggedInUser.setNeedsPasswordReset(false);
+                System.out.println("Password updated successfully!\n");
+            }
             System.out.println("Login successful. Welcome " + loggedInUser.getName() + ".\n");
             this.currentUser = loggedInUser;
             return true;

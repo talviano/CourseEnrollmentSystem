@@ -24,6 +24,7 @@ import model.Student;
 import model.User;
 import util.ColumnExtractor;
 import util.TablePrinter;
+import util.Util;
 
 public class AccountManager {
     private List<User> users;
@@ -113,12 +114,15 @@ public class AccountManager {
      */
     public void createStudent() {
         System.out.print("Name (First Last): ");
-        String name = input.nextLine();
+        String name = Util.toTitleCase(input.nextLine());
         String email = generateEmail(name, domain);
         String password = generateDefaultPassword(name);
         boolean advisingHold = false;
         addUser(new Student(name, email, password, advisingHold));
-        System.out.println("Student Created.\n");
+        System.out.println("Student Created.");
+        System.out.println("Email: " + email);
+        System.out.println("Default Password: " + password);
+
     }
 
     /**
@@ -126,11 +130,13 @@ public class AccountManager {
      */
     public void createInstructor() {
         System.out.print("Name (First Last): ");
-        String name = input.nextLine();
+        String name = Util.toTitleCase(input.nextLine());
         String email = generateEmail(name, domain);
         String password = generateDefaultPassword(name);
         addUser(new Instructor(name, email, password));
-        System.out.println("Instructor Created.\n");
+        System.out.println("Instructor Created.");
+        System.out.println("Email: " + email);
+        System.out.println("Default Password: " + password);
     }
 
     /**
@@ -138,11 +144,13 @@ public class AccountManager {
      */
     public void createAdmin() {
         System.out.print("Name (First Last): ");
-        String name = input.nextLine();
+        String name = Util.toTitleCase(input.nextLine());
         String email = generateEmail(name, domain);
         String password = generateDefaultPassword(name);
         addUser(new Admin(name, email, password));
-        System.out.println("Admin Created.\n");
+        System.out.println("Admin Created.");
+        System.out.println("Email: " + email);
+        System.out.println("Default Password: " + password);
     }
 
     /**

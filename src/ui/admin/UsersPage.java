@@ -50,9 +50,10 @@ public class UsersPage extends Page {
         List<String> menuOptions = new ArrayList<>();
         if (checkPermission(Permissions.USER_MANAGEMENT)) {
             menuOptions.addAll(
-                    List.of("Create new user", "View all users", "Delete existing user", "Return to Admin Menu"));
+                    List.of("Create new user", "Delete existing user"));
         }
-        menuOptions.addAll(List.of("View all users", "Return to Admin Menu"));
+        menuOptions.add("View all users");
+        menuOptions.add("Return to Admin Menu");
         return menuOptions;
     }
 
@@ -102,13 +103,13 @@ public class UsersPage extends Page {
 
             switch (userType) {
                 case "student":
-                    accountManager.createStudent();
+                    admin.createStudent(accountManager);
                     break;
                 case "instructor":
-                    accountManager.createInstructor();
+                    admin.createInstructor(accountManager);
                     break;
                 case "admin":
-                    accountManager.createAdmin();
+                    admin.createAdmin(accountManager);
                     break;
                 default:
                     System.out.println(userType + " is an invalid user type. Please enter either Student, Instructor, or Admin.");

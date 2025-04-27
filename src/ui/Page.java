@@ -75,9 +75,12 @@ public abstract class Page {
                 input.nextLine();
                 if (Util.isValidMenuChoice(choice, menuOptions.size())) {
                     return choice;
+                } else {
+                    System.out.println("Invalid option. Please select a valid menu number.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println(e);
+                System.out.println("Please enter a valid number input.");
+                input.nextLine();
             }
         }
     }
@@ -120,7 +123,7 @@ public abstract class Page {
      */
     public String promptCourseId() {
         System.out.print("Id (e.g., MATH 1242): ");
-        String id = input.nextLine().strip().toLowerCase();
+        String id = input.nextLine().strip();
         return id;
     }
 

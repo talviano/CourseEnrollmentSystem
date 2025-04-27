@@ -70,27 +70,40 @@ public class AdvisingHoldPage extends Page {
     public void handleAction(int choice) {
         switch (choice) {
             case 1:
-                System.out.println(
-                        "This action will set all students advising holds to true and render previous advising hold statuses unrecoverable.");
-                System.out.print("Are you sure you want to go through with this action? (y/n): ");
-                String value = input.nextLine();
-                if (Util.yesNoToBoolean(value)) {
-                    System.out.print("Please type CONFIRM to confirm this action (or press enter to quit): ");
-                    String value2 = input.nextLine();
-                    if (value2.equals("CONFIRM")) {
+                System.out.println();
+                System.out.println("WARNING: This action will set ALL students' advising holds to ON.");
+                System.out.println("This will overwrite all previous advising hold statuses and cannot be undone.");
+                System.out.println();
+                System.out.print("Are you sure you want to proceed? (Y/N): ");
+                String confirmFirst = input.nextLine().strip();
+                
+                if (Util.yesNoToBoolean(confirmFirst)) {
+                    System.out.print("Type 'CONFIRM' to finalize this action, or press ENTER to cancel: ");
+                    String confirmSecond = input.nextLine().strip();
+                    if (confirmSecond.equals("CONFIRM")) {
                         accountManager.setAllAdvisingHoldsTrue();
+                        System.out.println("All advising holds have been set to ON.");
+                    } else {
+                        System.out.println("Action canceled.");
                     }
+                } else {
+                    System.out.println("Action canceled.");
                 }
                 break;
             case 2:
                 String id = promptUserId();
                 User user = accountManager.getUserByIdOrEmail(id);
                 if (user instanceof Student student) {
-                    boolean status = student.hasAdvisingHold();
-                    System.out.println("Advising hold " + "(" + (status ? "ON" : "OFF") + ")");
-                    System.out.println("Press ENTER to toggle:");
-                    student.setAdvisingHold(!status);
-                    System.out.println("Advising hold is now " + (student.hasAdvisingHold() ? "ON" : "OFF") + ".");
+                    boolean currentStatus = student.hasAdvisingHold();
+                    System.out.println("Current advising hold status: " + (currentStatus ? "ON" : "OFF"));
+                    System.out.print("Press ENTER to toggle advising hold, or type 'CANCEL' to abort: ");
+                    String toggleInput = input.nextLine().strip();
+                    if (!toggleInput.equalsIgnoreCase("CANCEL")) {
+                        student.setAdvisingHold(!currentStatus);
+                        System.out.println("Advising hold is now: " + (student.hasAdvisingHold() ? "ON" : "OFF"));
+                    } else {
+                        System.out.println("No changes made.");
+                    }
                 } else {
                     System.out.println("No student found with the given ID.");
                 }

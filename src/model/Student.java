@@ -96,9 +96,6 @@ public class Student extends User {
      * Displays the student's schedule, organized by day of the week.
      */
     public void viewSchedule() {
-        System.out.println(" ".repeat((39 - "Your Schedule".length()) / 2) + "Your Schedule");
-
-        // Dynamically calculate max column widths
         int maxCourseIdWidth = 0;
         int maxTimeSlotWidth = 0;
 
@@ -111,11 +108,19 @@ public class Student extends User {
             }
         }
 
-        // Add padding to make things look nice
-        maxCourseIdWidth += 4; // For spacing/padding
-        maxTimeSlotWidth += 4;
+        if (maxCourseIdWidth == 0) {
+            maxCourseIdWidth = 15; 
+        } else {
+            maxCourseIdWidth += 4; 
+        }
 
-        System.out.println(); // spacing
+        if (maxTimeSlotWidth == 0) {
+            maxTimeSlotWidth = 20; 
+        } else {
+            maxTimeSlotWidth += 4; 
+        }
+
+        System.out.println(); 
         for (int i = 1; i <= 5; i++) {
             printClassesForDay(DayOfWeek.of(i), maxCourseIdWidth, maxTimeSlotWidth);
         }
@@ -156,25 +161,19 @@ public class Student extends User {
         System.out.printf("| %-" + courseColWidth + "s | %-" + timeColWidth + "s |\n", "Course", "Time Slot");
         Util.createTableSeperator(new int[]{courseColWidth, timeColWidth});
     
-        boolean printed = false;
         for (CourseSection course : enrolledCourses) {
             for (TimeSlot slot : course.getTimeSlots()) {
                 if (slot.getDay().equals(day)) {
                     System.out.printf("| %-" + courseColWidth + "s | %-" + timeColWidth + "s |\n",
                             course.getCourse().getId(),
                             Util.formatTimeSlot(slot));
-                    printed = true;
                 }
             }
         }
-    
-        if (!printed) {
-            System.out.printf("| %-" + (courseColWidth + timeColWidth + 5) + "s |\n", "No classes");
-        }
-    
         Util.createTableSeperator(new int[]{courseColWidth, timeColWidth});
         System.out.println();
     }
+    
 
     /**
      * Returns the list of courses the student is enrolled in.
