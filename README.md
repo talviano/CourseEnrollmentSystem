@@ -20,8 +20,7 @@ git clone https://github.com/talviano/CourseEnrollmentSystem.git
 Or download the ZIP from GitHub and extract it.
 
 ### 2. Open in Your IDE
-- Open the project in IntelliJ, Eclipse, or VSCode.
-- Ensure the `src` folder is marked as the "Sources Root" if necessary.
+- Open the project in VSCode, IntelliJ, etc.
 
 ### 3. Compile and Run `Main.java`
 - Navigate to `src/main/Main.java`.
