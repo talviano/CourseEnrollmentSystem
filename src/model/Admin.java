@@ -1,3 +1,10 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+import system.AccountManager;
+import system.EnrollmentSystem;
+
 /**
  * Represents an admin user in the system.
  * This class provides methods for to check permissions for managing courses, course sections, and users.
@@ -6,15 +13,6 @@
  *
  * @version Feb 22, 2025
  */
-package model;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import system.AccountManager;
-import system.EnrollmentSystem;
-
 public class Admin extends User {
     /**
      * The last assigned ID for an admin.
