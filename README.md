@@ -36,14 +36,23 @@ java -cp src main.Main
 - Use the console menus to log in and perform actions based on your role.
 
 
-## Default Login Credentials
-You can log in immediately using override credentials:
+## Default User Views
+You can log in immediately using override credentials for dev/testing purposes:
 
-| Role        | Email             | Password        |
-|-------------|-------------------|-----------------|
-| Admin       | adminoveride       | adminoveride    |
-| Student     | studentoveride     | studentoveride  |
-| Instructor  | instructoroveride  | studentoveride  |
+| Role        | Email               | Password           |
+|-------------|---------------------|--------------------|
+| Admin       | adminoverride       | adminoverride    |
+| Student     | studentoverride     | studentoverride  |
+| Instructor  | instructoroverride  | studentoverride  |
+
+## Logging in
+The system admin can login into the system for the first time with all permissions with the following credentials:
+
+| Role        | Email                    | Password        |
+|-------------|--------------------------|-----------------|
+| Admin       | sysadmin@university.edu  | temppass        |
+
+All users at creation with be given a temporary password they will need to change at first login.
 
 
 ## Features
