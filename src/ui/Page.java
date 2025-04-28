@@ -1,20 +1,3 @@
-/**
- * The Page class serves as an abstract base class for all user interface pages in the system.
- * It provides common functionality for displaying menus, handling user input, and managing
- * user-specific actions. Subclasses must implement methods to define menu options, handle
- * specific actions, and provide a title for the menu.
- *
- * This class is part of the UI layer and is designed to be extended by role-specific pages
- * such as StudentPage, InstructorPage, and AdminPage.
- *
- * Responsibilities:
- * - Displaying a header with user information.
- * - Displaying a menu with options specific to the page.
- * - Handling user input and delegating actions to subclasses.
- * - Providing a logout option to terminate the session.
- *
- * @version Mar 23, 2025
- */
 package ui;
 
 import java.util.InputMismatchException;
@@ -25,9 +8,17 @@ import model.Admin;
 import model.User;
 import util.Util;
 
+/**
+ * The Page class serves as an abstract base class for all user interface pages in the system.
+ * It provides common functionality for displaying menus, handling user input, and managing
+ * user-specific actions. Subclasses must implement methods to define menu options, handle
+ * specific actions, and provide a title for the menu.
+ *
+ * @version Mar 23, 2025
+ */
 public abstract class Page {
     /**
-     * A shared Scanner instance for reading user input.
+     * A shared Scanner for reading user input.
      */
     protected static final Scanner input = new Scanner(System.in);
 
@@ -53,7 +44,7 @@ public abstract class Page {
         while (true) {
             int choice = displayMenu();
             if (choice == getLogoutOption()) {
-                System.out.println("Logging out...");
+                handleLogout();
                 break;
             }
             handleAction(choice);
@@ -159,6 +150,14 @@ public abstract class Page {
         return selected;
     }
 
+    
+    /**
+     * Displays message if user if logging out
+     */
+    public void handleLogout() {
+        System.out.println("Logging out...");
+    }
+
     /**
      * Returns the menu options specific to this page.
      * Subclasses must implement this method to define their menu options.
@@ -168,7 +167,7 @@ public abstract class Page {
     protected abstract List<String> getMenuOptions();
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the  action based on to the user's menu choice.
      * Subclasses must implement this method to define their specific actions.
      *
      * @param choice the user's menu choice
@@ -182,6 +181,8 @@ public abstract class Page {
      * @return the menu title
      */
     protected abstract String getMenuTitle();
+
+
 
     /**
      * Returns the menu option number that corresponds to logging out.

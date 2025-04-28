@@ -1,9 +1,3 @@
-/**
- * Tests the functionality of the Course class.
- * This class includes tests for section creation and removal.
- *
- * @version Apr 27, 2025
- */
 package tests;
 
 import model.Course;
@@ -14,6 +8,12 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * Tests the functionality of the Course class.
+ * This class includes tests for section creation and removal.
+ *
+ * @version Apr 27, 2025
+ */
 public class CourseTest {
     public static void main(String[] args) {
         System.out.println("########################################################");

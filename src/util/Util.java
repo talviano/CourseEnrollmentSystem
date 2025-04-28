@@ -1,9 +1,3 @@
-/**
- * Utility class providing helper methods for formatting and printing.
- * This class includes methods to create separators, table separators, and format time slots.
- * 
- * @version Feb 26, 2025
- */
 package util;
 
 import java.time.format.DateTimeFormatter;
@@ -17,6 +11,12 @@ import model.TimeSlot;
 import model.User;
 import system.AccountManager;
 
+/**
+ * Utility class providing helper methods for formatting and printing.
+ * This class includes methods to create separators, table separators, and format time slots.
+ * 
+ * @version Feb 26, 2025
+ */
 public class Util {
     /**
      * Creates a separator line of a specified length and prints it to the console.

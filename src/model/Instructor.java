@@ -1,9 +1,3 @@
-/**
- * Represents an instructor in the system.
- * This class provides methods for assigning courses and viewing assigned courses.
- *
- * @version Feb 22, 2025
- */
 package model;
 
 import java.util.ArrayList;
@@ -12,6 +6,12 @@ import java.util.List;
 import util.TablePrinter;
 import util.ColumnExtractor;
 
+/**
+ * Represents an instructor in the system.
+ * This class provides methods for assigning courses and viewing assigned courses.
+ *
+ * @version Feb 22, 2025
+ */
 public class Instructor extends User {
     private static int lastAssignedId = 801999999;
     private List<CourseSection> assignedCourses;

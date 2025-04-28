@@ -2,11 +2,6 @@
  * Represents a section of a course.
  * This class provides methods to manage enrollment, assign instructors, and check availability.
  *
- * Responsibilities:
- * - Managing enrollment of students in the course section.
- * - Assigning and unassigning instructors to the course section.
- * - Providing details about the course section, such as time slots, capacity, and enrolled students.
- *
  * @version Feb 23, 2025
  */
 package model;

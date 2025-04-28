@@ -1,23 +1,3 @@
-/**
- * The LoginPage class represents the user interface for user login.
- * It provides functionalities for users to log in to the system
- * using their email and password.
- *
- * This class is part of the UI layer and interacts with the AccountManager
- * to authenticate users.
- *
- * Responsibilities:
- * - Displaying the login menu.
- * - Authenticating users based on their email and password.
- * - Managing the current logged-in user.
- * - Allowing users to exit the login page.
- *
- * Usage:
- * LoginPage loginPage = new LoginPage(accountManager);
- * loginPage.display();
- *
- * @version Mar 22, 2025
- */
 package ui;
 
 import java.util.List;
@@ -25,6 +5,13 @@ import model.User;
 import system.AccountManager;
 import util.Util;
 
+/**
+ * The LoginPage class represents the user interface for user login.
+ * It provides functionalities for users to log in to the system
+ * using their email and password.
+ *
+ * @version Mar 22, 2025
+ */
 public class LoginPage extends Page {
     private AccountManager accountManager;
     private User currentUser;
@@ -61,7 +48,7 @@ public class LoginPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the  action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */

@@ -1,24 +1,3 @@
-/**
- * The AdminPage class represents the user interface for administrators.
- * It provides functionalities for administrators to manage users,
- * courses, course sections, and enrollment. Administrators can also
- * perform other admin-specific tasks such as assigning instructors
- * and generating reports.
- *
- * This class is part of the UI layer and interacts with the underlying
- * system to fetch and modify data relevant to administrators.
- *
- * Responsibilities:
- * - Managing users (create, edit, delete).
- * - Managing courses and course sections.
- * - Managing enrollment (enroll/drop students, assign/unassign instructors).
- *
- * Usage:
- * AdminPage adminPage = new AdminPage(admin, enrollmentSystem, accountManager);
- * adminPage.display();
- *
- * @version Apr 19, 2025
- */
 package ui.admin;
 
 import java.util.ArrayList;
@@ -31,6 +10,15 @@ import system.AccountManager;
 import system.EnrollmentSystem;
 import ui.Page;
 
+/**
+ * The AdminPage class represents the user interface for administrators.
+ * It provides functionalities for administrators to manage users,
+ * courses, course sections, and enrollment. Administrators can also
+ * perform other admin-specific tasks such as assigning instructors
+ * and generating reports.
+ *
+ * @version Apr 19, 2025
+ */
 public class AdminPage extends Page {
     /**
      * The enrollment system used to manage courses and sections.
@@ -60,7 +48,10 @@ public class AdminPage extends Page {
         this.enrollmentSystem = enrollmentSystem;
         this.accountManager = accountManager;
     }
-    
+
+     /**
+     * Prompts user to select specific admin and displays admin permissions page for that admin
+     */
     public void manageAdminPermissionsView() {
         while (true) {
             System.out.print("Enter Admin ID or Email: ");
@@ -83,14 +74,12 @@ public class AdminPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */
     @Override
     public void handleAction(int choice) {
-        
-
         switch (getSelectedOption(choice)) {
             case "Manage Users":
                 UsersPage manageUsersPage = new UsersPage(admin, accountManager);

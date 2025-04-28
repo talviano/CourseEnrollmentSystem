@@ -1,20 +1,14 @@
-/**
- * Represents a course that students can enroll in.
- * This class provides methods to check prerequisites, manage course sections,
- * and retrieve course details such as ID, name, description, and credits.
- *
- * Responsibilities:
- * - Managing course sections.
- * - Checking if a student meets the prerequisites for the course.
- * - Providing course details such as ID, name, description, and credits.
- *
- * @version Feb 22, 2025
- */
 package model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a course that students can enroll in.
+ * This class provides methods manage course sections, and retrieve course details such as ID, name, description, and credits.
+ * 
+ * @version Feb 22, 2025
+ */
 public class Course {
     private String id;
     private String name;

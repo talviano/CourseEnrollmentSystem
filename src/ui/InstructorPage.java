@@ -1,21 +1,3 @@
-/**
- * The InstructorPage class represents the user interface for instructors.
- * It provides functionalities for instructors to manage their assigned
- * courses, view enrolled students, and perform other instructor-specific tasks.
- *
- * This class is part of the UI layer and interacts with the underlying
- * system to fetch and display data relevant to instructors.
- *
- * Responsibilities:
- * - Viewing assigned course sections.
- * - Viewing the roster of students enrolled in a specific section.
- *
- * Usage:
- * InstructorPage instructorPage = new InstructorPage(instructor, enrollmentSystem);
- * instructorPage.display();
- *
- * @version Apr 19, 2025
- */
 package ui;
 
 import java.util.List;
@@ -24,6 +6,13 @@ import model.CourseSection;
 import model.Instructor;
 import system.EnrollmentSystem;
 
+/**
+ * The InstructorPage class represents the user interface for instructors.
+ * It provides functionalities for instructors to manage their assigned
+ * courses, view enrolled students, and perform other instructor-specific tasks.
+ *
+ * @version Apr 19, 2025
+ */
 public class InstructorPage extends Page {
     /**
      * The instructor associated with this page.
@@ -48,7 +37,7 @@ public class InstructorPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the  action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */

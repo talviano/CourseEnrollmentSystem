@@ -3,18 +3,6 @@
  * It provides functionalities for students to register for courses,
  * view their enrolled courses, and perform other student-specific tasks.
  *
- * This class is part of the UI layer and interacts with the underlying
- * system to fetch and display data relevant to students.
- *
- * Responsibilities:
- * - Displaying available courses for enrollment.
- * - Allowing students to enroll in or drop courses.
- * - Viewing the student's current schedule.
- *
- * Usage:
- * StudentPage studentPage = new StudentPage(student, enrollmentSystem);
- * studentPage.display();
- *
  * @version Apr 19, 2025
  */
 package ui.student;
@@ -49,7 +37,7 @@ public class StudentPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the  action based on to the user's menu choice.
      * 
      * @param choice the user's menu choice
      */

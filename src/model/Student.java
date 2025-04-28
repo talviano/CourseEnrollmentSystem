@@ -1,14 +1,3 @@
-/**
- * Represents a student enrolled in courses.
- * This class provides methods to enroll in, drop, and view courses.
- *
- * Responsibilities:
- * - Managing the student's enrolled courses.
- * - Handling enrollment and dropping of courses.
- * - Displaying the student's schedule and enrolled courses.
- *
- * @version Feb 22, 2025
- */
 package model;
 
 import java.time.DayOfWeek;
@@ -18,6 +7,12 @@ import java.util.List;
 import util.ColumnExtractor;
 import util.TablePrinter;
 import util.Util;
+
+/**
+ * Represents a student enrolled in courses.
+ * This class provides methods to enroll in, drop, and view courses.
+ * @version Feb 22, 2025
+ */
 
 public class Student extends User {
     private static int lastAssignedId = 800999999;
@@ -93,7 +88,7 @@ public class Student extends User {
     }
 
     /**
-     * Displays the student's schedule, organized by day of the week.
+     * Displays the student's schedule in order of the day of the week.
      */
     public void viewSchedule() {
         int maxCourseIdWidth = 0;

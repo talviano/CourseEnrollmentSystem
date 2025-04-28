@@ -1,11 +1,11 @@
+package model;
+
 /**
  * Represents a user in the system.
  * This class provides methods for user authentication.
  *
  * @version Feb 22, 2025
  */
-package model;
-
 public class User {
     private String id;
     private String name; 
@@ -64,14 +64,30 @@ public class User {
         return id;
     }
 
+    /**
+     * Returns wheter user needs to reset there password
+     *
+     * @return {@code true} if the user needs to reset their password, {@code false} otherwise
+     */
     public boolean needsPasswordReset() {
         return needsPasswordReset;
     }
 
+    /**
+     * Sets whether the user needs to reset their password
+     *
+     * @param needPasswordReset {@code true} if a password reset is required, {@code false} otherwise
+     */
     public void setNeedsPasswordReset(boolean needsPasswordReset) {
         this.needsPasswordReset = needsPasswordReset;
     }
 
+
+    /**
+     * Sets the user's password
+     * 
+     * @param password the new password to set
+     */
     public void setPassword(String password) {
         this.password = password;
     }

@@ -1,9 +1,3 @@
-/**
- * Tests the functionality of the CourseSection class.
- * This class includes tests for enrollment, dropping, instructor assignment, and capacity checks.
- *
- * @version Apr 27, 2025
- */
 package tests;
 
 import model.Course;
@@ -16,6 +10,12 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * Tests the functionality of the CourseSection class.
+ * This class includes tests for enrollment, dropping, instructor assignment, and capacity checks.
+ *
+ * @version Apr 27, 2025
+ */
 public class CourseSectionTest {
     public static void main(String[] args) {
         System.out.println("########################################################");

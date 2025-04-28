@@ -1,21 +1,3 @@
-/**
- * The EnrollmentPage class provides a user interface for managing enrollment actions.
- * It allows an admin to enroll students in course sections, drop students from sections,
- * assign instructors to sections, and unassign instructors from sections.
- *
- * Responsibilities:
- * - Enrolling students in course sections.
- * - Dropping students from course sections.
- * - Assigning instructors to course sections.
- * - Unassigning instructors from course sections.
- * - Returning to the admin menu.
- *
- * Usage:
- * EnrollmentPage enrollmentPage = new EnrollmentPage(admin, enrollmentSystem, accountManager);
- * enrollmentPage.display();
- *
- * @version Apr 25, 2025
- */
 package ui.student;
 
 import java.util.List;
@@ -25,6 +7,13 @@ import model.Student;
 import system.EnrollmentSystem;
 import ui.Page;
 
+/**
+ * The EnrollmentPage class provides a user interface for managing enrollment actions.
+ * It allows an admin to enroll students in course sections, drop students from sections,
+ * assign instructors to sections, and unassign instructors from sections.
+ *
+ * @version Apr 25, 2025
+ */
 public class EnrollmentPage extends Page {
     private Student student;
     private EnrollmentSystem enrollmentSystem;
@@ -62,7 +51,7 @@ public class EnrollmentPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the  action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */
@@ -91,10 +80,19 @@ public class EnrollmentPage extends Page {
         } else {
             boolean success = student.enroll(section);
             if (success) {
-                System.out.println("Successfully enrolled in " + section.getCourse().getId() + " Section " + section.getSectionId());
+                System.out.println("Successfully enrolled in " + section.getCourse().getId() + " Section "
+                        + section.getSectionId());
             } else {
                 System.out.println("Enrollment failed.");
             }
         }
     }
+    
+    /**
+    * Displays message if user if logging out
+    */
+    @Override
+    public void handleLogout() {
+        //override default use to do nothing
+    };
 }

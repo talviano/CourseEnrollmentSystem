@@ -1,17 +1,3 @@
-/**
- * Manages the enrollment system for courses, students, and instructors.
- * This class provides methods to add and remove courses, register students and instructors,
- * and enroll students in course sections. It also includes functionality for managing
- * course sections and displaying course-related information.
- *
- * Responsibilities:
- * - Managing courses and course sections.
- * - Enrolling and dropping students from course sections.
- * - Assigning and unassigning instructors to course sections.
- * - Displaying available courses and course sections in a formatted table.
- *
- * @version Apr 19, 2025
- */
 package system;
 
 import java.time.DayOfWeek;
@@ -29,9 +15,16 @@ import util.TablePrinter;
 import util.ColumnExtractor;
 import util.Util;
 
+/**
+ * Manages the enrollment system for courses, students, and instructors.
+ * This class provides methods to add and remove courses, register students and instructors,
+ * and enroll students in course sections. It also includes functionality for managing
+ * course sections and displaying course-related information.
+ *
+ * @version Apr 19, 2025
+ */
 public class EnrollmentSystem {
     private List<Course> courses;
-    private static int crn = 10000;
     private final Scanner input = new Scanner(System.in);
 
     /**

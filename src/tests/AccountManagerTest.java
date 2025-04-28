@@ -1,9 +1,3 @@
-/**
- * Tests the functionality of the AccountManager class.
- * This class includes tests for adding users, authenticating, removing, and looking up users.
- *
- * @version Apr 27, 2025
- */
 package tests;
 
 import model.Admin;
@@ -12,6 +6,12 @@ import model.Student;
 import model.User;
 import system.AccountManager;
 
+/**
+ * Tests the functionality of the AccountManager class.
+ * This class includes tests for adding users, authenticating, removing, and looking up users.
+ *
+ * @version Apr 27, 2025
+ */
 public class AccountManagerTest {
     public static void main(String[] args) {
         System.out.println("########################################################");

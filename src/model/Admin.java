@@ -1,19 +1,8 @@
 /**
  * Represents an admin user in the system.
- * This class provides methods for managing courses, course sections, and users.
+ * This class provides methods for to check permissions for managing courses, course sections, and users.
  * Admins have specific permissions that determine the actions they can perform.
  *
- * Responsibilities:
- * - Managing courses and course sections.
- * - Creating and managing users (students, instructors, and other admins).
- * - Granting and revoking permissions.
- *
- * Permissions:
- * - COURSE_MANAGEMENT: Allows managing courses and course sections.
- * - USER_MANAGEMENT: Allows creating and managing users.
- * - ADMIN_MANAGEMENT: Allows managing other admins.
- * - VIEW_USERS: Allows viewing user details.
- * - VIEW_COURSES: Allows viewing course details.
  *
  * @version Feb 22, 2025
  */
@@ -42,7 +31,7 @@ public class Admin extends User {
      * The message displayed when an admin attempts an action without the required permission.
      */
     private static String noPermissionString = "You do not have permission for this action.";
-    private Scanner input = new Scanner(System.in);
+
 
     /**
      * Constructs an Admin with specified details.

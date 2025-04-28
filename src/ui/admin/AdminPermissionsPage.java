@@ -1,20 +1,3 @@
-/**
- * The AdminPermissionsPage class provides a user interface for managing the permissions
- * of a specific admin. It allows an admin to grant or revoke permissions for another admin
- * and view all admins in the system.
- *
- * Responsibilities:
- * - Granting all permissions to a target admin.
- * - Granting specific permissions to a target admin.
- * - Revoking specific permissions from a target admin.
- * - Viewing all admins in the system.
- *
- * Usage:
- * AdminPermissionsPage permissionsPage = new AdminPermissionsPage(admin, targetAdmin, accountManager);
- * permissionsPage.display();
- *
- * @version Apr 25, 2025
- */
 package ui.admin;
 
 import java.util.List;
@@ -24,6 +7,13 @@ import model.Permissions;
 import system.AccountManager;
 import ui.Page;
 
+/**
+ * The AdminPermissionsPage class provides a user interface for managing the permissions
+ * of a specific admin. It allows an admin to grant or revoke permissions for another admin
+ * and view all admins in the system.
+ *
+ * @version Apr 25, 2025
+ */
 public class AdminPermissionsPage extends Page {
     /**
      * The admin currently logged in and managing permissions.
@@ -75,7 +65,15 @@ public class AdminPermissionsPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+    * Displays message if user if logging out
+    */
+    @Override
+    public void handleLogout() {
+        //override default use to do nothing
+    };
+
+    /**
+     * Handles the  action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */

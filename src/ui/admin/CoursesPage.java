@@ -1,19 +1,3 @@
-/**
- * The CoursesPage class provides a user interface for managing courses.
- * It allows an admin to create new courses, delete existing courses, and view all courses.
- *
- * Responsibilities:
- * - Creating new courses.
- * - Deleting existing courses.
- * - Viewing all courses in the system.
- * - Returning to the admin menu.
- *
- * Usage:
- * CoursesPage coursesPage = new CoursesPage(admin, enrollmentSystem);
- * coursesPage.display();
- *
- * @version Apr 25, 2025
- */
 package ui.admin;
 
 import java.util.ArrayList;
@@ -24,6 +8,12 @@ import model.Permissions;
 import system.EnrollmentSystem;
 import ui.Page;
 
+/**
+ * The CoursesPage class provides a user interface for managing courses.
+ * It allows an admin to create new courses, delete existing courses, and view all courses.
+ *
+ * @version Apr 25, 2025
+ */
 public class CoursesPage extends Page {
     private Admin admin;
     private EnrollmentSystem enrollmentSystem;
@@ -57,6 +47,14 @@ public class CoursesPage extends Page {
     }
 
     /**
+    * Displays message if user if logging out
+    */
+    @Override
+    public void handleLogout() {
+        //override default use to do nothing
+    };
+
+    /**
      * Returns the title of the menu for the CoursesPage.
      *
      * @return the menu title
@@ -67,7 +65,7 @@ public class CoursesPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */

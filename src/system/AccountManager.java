@@ -1,17 +1,3 @@
-/**
- * Manages user accounts in the course registration system.
- * This class provides methods to authenticate users, create new users,
- * and manage existing users. It also generates default credentials
- * for new users and displays user information in a formatted table.
- *
- * Responsibilities:
- * - Authenticating users based on email and password.
- * - Creating and managing users (students, instructors, and admins).
- * - Generating email addresses and default passwords for users.
- * - Displaying user information in a formatted table.
- *
- * @version Feb 24, 2025
- */
 package system;
 
 import java.util.ArrayList;
@@ -25,6 +11,15 @@ import model.User;
 import util.ColumnExtractor;
 import util.TablePrinter;
 import util.Util;
+
+/**
+ * Manages user accounts in the course registration system.
+ * This class provides methods to authenticate users, create new users,
+ * and manage existing users. It also generates default credentials
+ * for new users and displays user information in a formatted table.
+ *
+ * @version Feb 24, 2025
+ */
 
 public class AccountManager {
     private List<User> users;
@@ -65,7 +60,7 @@ public class AccountManager {
      * Adds a user to the system.
      *
      * @param user the user to add
-     * @return true if the user is added successfully, false otherwise
+     * @return {@code true} if the user is added successfully, {@code false} otherwise
      */
     public boolean addUser(User user) {
         if (users.contains(user)) {
@@ -84,7 +79,7 @@ public class AccountManager {
      * Removes a user from the system.
      *
      * @param user the user to remove
-     * @return true if the user is removed successfully, false otherwise
+     * @return {@code true} if the user is removed successfully, {@code false} otherwise
      */
     public boolean removeUser(User user) {
         if (user == null || !users.contains(user)) {
@@ -158,7 +153,7 @@ public class AccountManager {
      *
      * @param name the name of the user
      * @param domain the domain of the email address
-     * @return the generated email address
+     * @return the generated email address string
      */
     public String generateEmail(String name, String domain) {
         if (name == null || name.trim().isEmpty()) {
@@ -191,7 +186,7 @@ public class AccountManager {
      * Generates a default password for a user based on their name.
      *
      * @param name the name of the user
-     * @return the generated default password
+     * @return the generated default password string
      */
     public String generateDefaultPassword(String name) {
         Random rand = new Random();

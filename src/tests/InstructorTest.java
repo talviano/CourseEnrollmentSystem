@@ -1,9 +1,3 @@
-/**
- * Tests the functionality of the Instructor class.
- * This class includes tests for assigning courses, viewing assigned courses, and viewing section rosters.
- *
- * @version Feb 27, 2025
- */
 package tests;
 
 import java.time.DayOfWeek;
@@ -17,6 +11,12 @@ import model.Instructor;
 import model.Student;
 import model.TimeSlot;
 
+/**
+ * Tests the functionality of the Instructor class.
+ * This class includes tests for assigning courses, viewing assigned courses, and viewing section rosters.
+ *
+ * @version Feb 27, 2025
+ */
 public class InstructorTest {
     public static void main(List<String> args) {
         System.out.println("########################################################");

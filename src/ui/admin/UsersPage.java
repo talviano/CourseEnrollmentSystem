@@ -1,19 +1,3 @@
-/**
- * The UsersPage class provides a user interface for managing user accounts.
- * It allows an admin to create new users, view all users, and delete existing users.
- *
- * Responsibilities:
- * - Creating new users (students, instructors, or admins).
- * - Viewing all users in the system.
- * - Deleting existing users from the system.
- * - Returning to the admin menu.
- *
- * Usage:
- * UsersPage usersPage = new UsersPage(admin, accountManager);
- * usersPage.display();
- *
- * @version Apr 25, 2025
- */
 package ui.admin;
 
 import java.util.ArrayList;
@@ -24,6 +8,12 @@ import model.Permissions;
 import system.AccountManager;
 import ui.Page;
 
+/**
+ * The UsersPage class provides a user interface for managing user accounts.
+ * It allows an admin to create new users, view all users, and delete existing users.
+ *
+ * @version Apr 25, 2025
+ */
 public class UsersPage extends Page {
     private Admin admin;
     private AccountManager accountManager;
@@ -68,7 +58,7 @@ public class UsersPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */
@@ -112,10 +102,19 @@ public class UsersPage extends Page {
                     admin.createAdmin(accountManager);
                     break;
                 default:
-                    System.out.println(userType + " is an invalid user type. Please enter either Student, Instructor, or Admin.");
+                    System.out.println(
+                            userType + " is an invalid user type. Please enter either Student, Instructor, or Admin.");
                     continue;
             }
             break;
         }
     }
+    
+    /**
+    * Displays message if user if logging out
+    */
+    @Override
+    public void handleLogout() {
+        //override default use to do nothing
+    };
 }

@@ -1,19 +1,3 @@
-/**
- * The CourseSectionsPage class provides a user interface for managing course sections.
- * It allows an admin to create new sections, delete existing sections, and view all sections.
- *
- * Responsibilities:
- * - Creating new course sections.
- * - Deleting existing course sections.
- * - Viewing all course sections in the system.
- * - Returning to the admin menu.
- *
- * Usage:
- * CourseSectionsPage courseSectionsPage = new CourseSectionsPage(admin, enrollmentSystem);
- * courseSectionsPage.display();
- *
- * @version Apr 25, 2025
- */
 package ui.admin;
 
 import java.util.ArrayList;
@@ -25,6 +9,13 @@ import model.Permissions;
 import system.EnrollmentSystem;
 import ui.Page;
 
+/**
+ * The CourseSectionsPage class provides a user interface for managing course sections.
+ * It allows an admin to create new sections, delete existing sections, and view all sections.
+ *
+ *
+ * @version Apr 25, 2025
+ */
 public class CourseSectionsPage extends Page {
     private Admin admin;
     private EnrollmentSystem enrollmentSystem;
@@ -59,6 +50,14 @@ public class CourseSectionsPage extends Page {
     }
 
     /**
+    * Displays message if user if logging out
+    */
+    @Override
+    public void handleLogout() {
+        //override default use to do nothing
+    };
+
+    /**
      * Returns the title of the menu for the CourseSectionsPage.
      *
      * @return the menu title
@@ -69,7 +68,7 @@ public class CourseSectionsPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */

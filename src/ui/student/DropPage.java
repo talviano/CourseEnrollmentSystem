@@ -1,17 +1,3 @@
-/**
- * The DropPage class provides a user interface for students to drop courses.
- * It allows a student to drop a course section by entering its CRN (Course Reference Number).
- *
- * Responsibilities:
- * - Dropping a course section by CRN.
- * - Returning to the student menu.
- *
- * Usage:
- * DropPage dropPage = new DropPage(student, enrollmentSystem);
- * dropPage.display();
- *
- * @version Apr 24, 2025
- */
 package ui.student;
 
 import java.util.List;
@@ -21,6 +7,12 @@ import model.Student;
 import system.EnrollmentSystem;
 import ui.Page;
 
+/**
+ * The DropPage class provides a user interface for students to drop courses.
+ * It allows a student to drop a course section by entering its CRN (Course Reference Number).
+ *
+ * @version Apr 24, 2025
+ */
 public class DropPage extends Page {
     private Student student;
     private EnrollmentSystem enrollmentSystem;
@@ -58,7 +50,7 @@ public class DropPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+     * Handles the action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */
@@ -98,4 +90,12 @@ public class DropPage extends Page {
             break;
         }
     }
+
+    /**
+    * Displays message if user if logging out
+    */
+    @Override
+    public void handleLogout() {
+        //override default use to do nothing
+    };
 }

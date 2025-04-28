@@ -1,3 +1,9 @@
+package tests;
+
+import model.Admin;
+import system.AccountManager;
+import system.EnrollmentSystem;
+
 /**
  * Tests the functionality of the Admin class.
  * This class includes manual input tests for permissions, course creation, and user creation.
@@ -8,12 +14,6 @@
  *
  * @version Apr 27, 2025
  */
-package tests;
-
-import model.Admin;
-import system.AccountManager;
-import system.EnrollmentSystem;
-
 public class AdminTest {
     public static void main(String[] args) {
         System.out.println("########################################################");

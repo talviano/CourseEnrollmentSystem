@@ -1,19 +1,3 @@
-/**
- * The AdvisingHoldPage class provides a user interface for managing advising holds
- * on student accounts. It allows an admin to toggle advising holds for individual students
- * or set advising holds for all students in the system.
- *
- * Responsibilities:
- * - Turning on advising holds for all students.
- * - Toggling the advising hold status for a specific student.
- * - Returning to the admin menu.
- *
- * Usage:
- * AdvisingHoldPage advisingHoldPage = new AdvisingHoldPage(admin, accountManager);
- * advisingHoldPage.display();
- *
- * @version Apr 25, 2025
- */
 package ui.admin;
 
 import java.util.List;
@@ -25,6 +9,13 @@ import system.AccountManager;
 import ui.Page;
 import util.Util;
 
+/**
+ * The AdvisingHoldPage class provides a user interface for managing advising holds
+ * on student accounts. It allows an admin to toggle advising holds for individual students
+ * or set advising holds for all students in the system.
+ *
+ * @version Apr 25, 2025
+ */
 public class AdvisingHoldPage extends Page {
     private Admin admin;
     private AccountManager accountManager;
@@ -62,7 +53,15 @@ public class AdvisingHoldPage extends Page {
     }
 
     /**
-     * Handles the action corresponding to the user's menu choice.
+    * Displays message if user if logging out
+    */
+    @Override
+    public void handleLogout() {
+        //override default use to do nothing
+    };
+
+    /**
+     * Handles the action based on to the user's menu choice.
      *
      * @param choice the user's menu choice
      */

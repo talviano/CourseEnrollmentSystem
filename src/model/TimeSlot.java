@@ -1,14 +1,14 @@
+package model;
+
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+
 /**
  * Represents a time slot for a course.
  * This class provides methods to check for conflicts with other time slots.
  *
  * @version Feb 22, 2025
  */
-package model;
-
-import java.time.DayOfWeek;
-import java.time.LocalTime;
-
 public class TimeSlot {
     private LocalTime startTime;
     private LocalTime endTime;

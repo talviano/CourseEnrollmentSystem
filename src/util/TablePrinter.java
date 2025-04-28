@@ -1,13 +1,13 @@
+package util;
+
+import java.util.List;
+
 /**
  * The TablePrinter class is a utility for printing tabular data to the console.
  * It dynamically generates a table based on the provided headers, data, and column extractors.
  * This class is generic and can be used to print tables for any type of object.
  *
- * Responsibilities:
- * - Dynamically calculate column widths based on the data and headers.
- * - Print a formatted table with headers, rows, and separators.
- *
- * Usage:
+ * How to use: 
  * <pre>
  * List<String> headers = List.of("Id", "Name", "Credits");
  * List<ColumnExtractor<Course>> extractors = List.of(
@@ -20,13 +20,8 @@
  * printer.printTable();
  * </pre>
  *
- * @param <T> the type of the objects to be printed in the table
  * @version Apr 19, 2025
  */
-package util;
-
-import java.util.List;
-
 public class TablePrinter<T> {
     /**
      * The headers for the table columns.
