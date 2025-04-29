@@ -108,10 +108,10 @@ public class AccountManager {
      * Creates a student by taking input from the user.
      */
     public void createStudent() {
-        System.out.print("Name (First Last): ");
-        String name = Util.toTitleCase(input.nextLine());
-        String email = generateEmail(name, domain);
-        String password = generateDefaultPassword(name);
+        List<String> credentials = generateEmailAndPassword();
+        String name = credentials.get(0);
+        String email = credentials.get(1);
+        String password = credentials.get(2);
         boolean advisingHold = false;
         addUser(new Student(name, email, password, advisingHold));
         System.out.println("Student Created.");
@@ -124,10 +124,10 @@ public class AccountManager {
      * Creates an instructor by taking input from the user.
      */
     public void createInstructor() {
-        System.out.print("Name (First Last): ");
-        String name = Util.toTitleCase(input.nextLine());
-        String email = generateEmail(name, domain);
-        String password = generateDefaultPassword(name);
+        List<String> credentials = generateEmailAndPassword();
+        String name = credentials.get(0);
+        String email = credentials.get(1);
+        String password = credentials.get(2);
         addUser(new Instructor(name, email, password));
         System.out.println("Instructor Created.");
         System.out.println("Email: " + email);
@@ -138,10 +138,10 @@ public class AccountManager {
      * Creates an admin by taking input from the user.
      */
     public void createAdmin() {
-        System.out.print("Name (First Last): ");
-        String name = Util.toTitleCase(input.nextLine());
-        String email = generateEmail(name, domain);
-        String password = generateDefaultPassword(name);
+        List<String> credentials = generateEmailAndPassword();
+        String name = credentials.get(0);
+        String email = credentials.get(1);
+        String password = credentials.get(2);
         addUser(new Admin(name, email, password));
         System.out.println("Admin Created.");
         System.out.println("Email: " + email);
@@ -156,13 +156,20 @@ public class AccountManager {
      * @return the generated email address string
      */
     public String generateEmail(String name, String domain) {
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null || name.strip().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty or null.");
         }
 
-        String baseEmail = name.split("\\s+")[0].toLowerCase().charAt(0) +
-                           name.split("\\s+")[1].toLowerCase();
+        if (!name.matches("^[a-zA-Z]+\\s+[a-zA-Z]+$")) {
+            throw new IllegalArgumentException("Name must include a first and last name separated by a space (First Last).");
+        }
 
+        String[] parts = name.strip().split("\\s+");
+    
+        String firstName = parts[0];
+        String lastName = parts[1];
+        String baseEmail = firstName.toLowerCase().charAt(0) + lastName.toLowerCase();
+                           
         if (users.isEmpty()) {
             return baseEmail + "@" + domain;
         }
@@ -189,9 +196,19 @@ public class AccountManager {
      * @return the generated default password string
      */
     public String generateDefaultPassword(String name) {
+        if (name == null || name.strip().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty or null.");
+        }
+
+        if (!name.matches("^[a-zA-Z]+\\s+[a-zA-Z]+$")) {
+            throw new IllegalArgumentException("Name must include a first and last name separated by a space (First Last).");
+        }
+    
+        String[] parts = name.strip().split("\\s+");
+    
         Random rand = new Random();
         int num = rand.nextInt(9000) + 1000;
-        return name.split("\\s+")[0] + num;
+        return parts[0] + num;
     }
 
     /**
@@ -248,12 +265,30 @@ public class AccountManager {
         List<String> headers = List.of("Name", "Email", "Permissions");
 
         List<ColumnExtractor<Admin>> extractors = List.of(
-            Admin::getName,
-            Admin::getEmail,
-            Admin::getPermissionsFormatted
-        );
+                Admin::getName,
+                Admin::getEmail,
+                Admin::getPermissionsFormatted);
 
         TablePrinter<Admin> printer = new TablePrinter<>(headers, extractors, admins);
         printer.printTable();
+    }
+    
+    private List<String> generateEmailAndPassword() {
+        String name = null;
+        String email = null;
+        String password = null;
+        while (true) {
+            try {
+                System.out.print("Name (First Last): ");
+                name = Util.toTitleCase(input.nextLine().strip());
+                email = generateEmail(name, domain);
+                password = generateDefaultPassword(name);
+                return List.of(name, email, password);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+                System.out.println("Please try again.");
+            }
+        }
+        
     }
 }
