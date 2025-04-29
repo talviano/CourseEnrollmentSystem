@@ -1,5 +1,6 @@
 package ui.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Admin;
@@ -51,7 +52,12 @@ public class AdminPermissionsPage extends Page {
      */
     @Override
     public List<String> getMenuOptions() {
-        return List.of("Grant All Permissions", "View all admins", "Grant Specific Permissions", "Revoke Specific Permission", "Return to Admin Menu");
+        List<String> menuOptions = new ArrayList<>();
+        if (checkPermission(Permissions.ADMIN_MANAGEMENT)) {
+            menuOptions.addAll(List.of("Grant All Permissions", "View all admins", "Grant Specific Permissions", "Revoke Specific Permission"));
+        }
+        menuOptions.add("Return to Admin Menu");
+        return menuOptions;
     }
 
     /**

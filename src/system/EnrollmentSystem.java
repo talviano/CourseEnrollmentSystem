@@ -93,17 +93,36 @@ public class EnrollmentSystem {
      * Creates a course by taking input from the user.
      */
     public void createCourse() {
-        System.out.print("Id (e.g., MATH 1241): ");
-        String id = input.nextLine();
-        System.out.print("Name (e.g., Calculus 1): ");
-        String name = input.nextLine();
-        System.out.print("Description: ");
-        String description = input.nextLine();
-        System.out.print("Credits: ");
-        int credits = input.nextInt();
-        addCourse(new Course(id, name, description, credits));
-        System.out.println("Course created.");
-        input.nextLine();
+        while (true) {
+            System.out.print("Id (e.g., MATH 1241): ");
+            String id = input.nextLine();
+            if (!id.matches("^[A-Z]{4} \\d{4}$")) {
+                System.out.println("Invalid format. Course ID must be in the format ABCD 1234 (e.g., MATH 1241).");
+                continue;
+            }
+            System.out.print("Name (e.g., Calculus 1): ");
+            String name = input.nextLine();
+            System.out.print("Description: ");
+            String description = input.nextLine();
+            System.out.print("Credits: ");
+            int credits = 0;
+            while (true) {
+                try {
+                    credits = input.nextInt();
+                    input.nextLine();
+                    if (credits <= 0) {
+                        System.out.println("Credits must be a positive number.");
+                        continue;
+                    }
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a valid integer.");
+                }
+            }
+            addCourse(new Course(id, name, description, credits));
+            System.out.println("Course created.");
+            break;
+        }
     }
 
     /**
